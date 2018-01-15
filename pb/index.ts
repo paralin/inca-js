@@ -1,0 +1,1 @@
+export { inca } from './inca'
