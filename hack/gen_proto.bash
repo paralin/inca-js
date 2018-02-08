@@ -14,10 +14,5 @@ source $GEN_PROTO
 
 build_proto_tree
 genproto inca
-genproto chain/chain
-genproto chain/chain_config
-genproto chain/proposer
-genproto chain/segment
-genproto chain/validator
-genproto block/block
+genprotoset chain/chain proto/chain/chain.proto proto/chain/chain_config.proto
 npm run precommit

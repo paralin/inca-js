@@ -96,6 +96,7 @@
     },
     "dependencies": {
         "@aperturerobotics/pbobject": "^0.2.0",
+        "arraybuffer-equal": "^1.0.4",
         "buffer": "^5.0.8",
         "elliptic": "^6.4.0",
         "ipfs": "^0.27.7",
