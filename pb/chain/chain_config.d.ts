@@ -1,6 +1,112 @@
 /* tslint:disable */
 import * as $protobuf from "protobufjs";
 
+/** Namespace chain. */
+export namespace chain {
+
+    /** Properties of a Config. */
+    interface IConfig {
+
+        /** Config genesisRef */
+        genesisRef?: (storageref.IStorageRef|null);
+
+        /** Config encryptionArgs */
+        encryptionArgs?: (pbobject.IObjectWrapper|null);
+
+        /** Config encryptionStrategy */
+        encryptionStrategy?: (inca.EncryptionStrategy|null);
+    }
+
+    /** Represents a Config. */
+    class Config implements IConfig {
+
+        /**
+         * Constructs a new Config.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: chain.IConfig);
+
+        /** Config genesisRef. */
+        public genesisRef?: (storageref.IStorageRef|null);
+
+        /** Config encryptionArgs. */
+        public encryptionArgs?: (pbobject.IObjectWrapper|null);
+
+        /** Config encryptionStrategy. */
+        public encryptionStrategy: inca.EncryptionStrategy;
+
+        /**
+         * Creates a new Config instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns Config instance
+         */
+        public static create(properties?: chain.IConfig): chain.Config;
+
+        /**
+         * Encodes the specified Config message. Does not implicitly {@link chain.Config.verify|verify} messages.
+         * @param message Config message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: chain.IConfig, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified Config message, length delimited. Does not implicitly {@link chain.Config.verify|verify} messages.
+         * @param message Config message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: chain.IConfig, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a Config message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns Config
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): chain.Config;
+
+        /**
+         * Decodes a Config message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns Config
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): chain.Config;
+
+        /**
+         * Verifies a Config message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a Config message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns Config
+         */
+        public static fromObject(object: { [k: string]: any }): chain.Config;
+
+        /**
+         * Creates a plain object from a Config message. Also converts values to other types if specified.
+         * @param message Config
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: chain.Config, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this Config to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+}
+
 /** Namespace inca. */
 export namespace inca {
 
@@ -1627,5 +1733,326 @@ export namespace objectsig {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+    }
+}
+
+/** Namespace pbobject. */
+export namespace pbobject {
+
+    /** Properties of an ObjectWrapper. */
+    interface IObjectWrapper {
+
+        /** ObjectWrapper objectTypeCrc */
+        objectTypeCrc?: (number|null);
+
+        /** ObjectWrapper encBlob */
+        encBlob?: (objectenc.IEncryptedBlob|null);
+
+        /** ObjectWrapper signatures */
+        signatures?: (objectsig.ISignature[]|null);
+    }
+
+    /** Represents an ObjectWrapper. */
+    class ObjectWrapper implements IObjectWrapper {
+
+        /**
+         * Constructs a new ObjectWrapper.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: pbobject.IObjectWrapper);
+
+        /** ObjectWrapper objectTypeCrc. */
+        public objectTypeCrc: number;
+
+        /** ObjectWrapper encBlob. */
+        public encBlob?: (objectenc.IEncryptedBlob|null);
+
+        /** ObjectWrapper signatures. */
+        public signatures: objectsig.ISignature[];
+
+        /**
+         * Creates a new ObjectWrapper instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns ObjectWrapper instance
+         */
+        public static create(properties?: pbobject.IObjectWrapper): pbobject.ObjectWrapper;
+
+        /**
+         * Encodes the specified ObjectWrapper message. Does not implicitly {@link pbobject.ObjectWrapper.verify|verify} messages.
+         * @param message ObjectWrapper message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: pbobject.IObjectWrapper, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified ObjectWrapper message, length delimited. Does not implicitly {@link pbobject.ObjectWrapper.verify|verify} messages.
+         * @param message ObjectWrapper message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: pbobject.IObjectWrapper, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an ObjectWrapper message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns ObjectWrapper
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): pbobject.ObjectWrapper;
+
+        /**
+         * Decodes an ObjectWrapper message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns ObjectWrapper
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): pbobject.ObjectWrapper;
+
+        /**
+         * Verifies an ObjectWrapper message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an ObjectWrapper message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns ObjectWrapper
+         */
+        public static fromObject(object: { [k: string]: any }): pbobject.ObjectWrapper;
+
+        /**
+         * Creates a plain object from an ObjectWrapper message. Also converts values to other types if specified.
+         * @param message ObjectWrapper
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: pbobject.ObjectWrapper, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this ObjectWrapper to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an ObjectTypeID. */
+    interface IObjectTypeID {
+
+        /** ObjectTypeID typeUuid */
+        typeUuid?: (string|null);
+    }
+
+    /** Represents an ObjectTypeID. */
+    class ObjectTypeID implements IObjectTypeID {
+
+        /**
+         * Constructs a new ObjectTypeID.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: pbobject.IObjectTypeID);
+
+        /** ObjectTypeID typeUuid. */
+        public typeUuid: string;
+
+        /**
+         * Creates a new ObjectTypeID instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns ObjectTypeID instance
+         */
+        public static create(properties?: pbobject.IObjectTypeID): pbobject.ObjectTypeID;
+
+        /**
+         * Encodes the specified ObjectTypeID message. Does not implicitly {@link pbobject.ObjectTypeID.verify|verify} messages.
+         * @param message ObjectTypeID message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: pbobject.IObjectTypeID, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified ObjectTypeID message, length delimited. Does not implicitly {@link pbobject.ObjectTypeID.verify|verify} messages.
+         * @param message ObjectTypeID message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: pbobject.IObjectTypeID, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an ObjectTypeID message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns ObjectTypeID
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): pbobject.ObjectTypeID;
+
+        /**
+         * Decodes an ObjectTypeID message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns ObjectTypeID
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): pbobject.ObjectTypeID;
+
+        /**
+         * Verifies an ObjectTypeID message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an ObjectTypeID message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns ObjectTypeID
+         */
+        public static fromObject(object: { [k: string]: any }): pbobject.ObjectTypeID;
+
+        /**
+         * Creates a plain object from an ObjectTypeID message. Also converts values to other types if specified.
+         * @param message ObjectTypeID
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: pbobject.ObjectTypeID, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this ObjectTypeID to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+}
+
+/** Namespace objectenc. */
+export namespace objectenc {
+
+    /** Properties of an EncryptedBlob. */
+    interface IEncryptedBlob {
+
+        /** EncryptedBlob encType */
+        encType?: (objectenc.EncryptionType|null);
+
+        /** EncryptedBlob encData */
+        encData?: (Uint8Array|null);
+
+        /** EncryptedBlob encMetadata */
+        encMetadata?: (Uint8Array|null);
+
+        /** EncryptedBlob compressionType */
+        compressionType?: (objectenc.CompressionType|null);
+    }
+
+    /** Represents an EncryptedBlob. */
+    class EncryptedBlob implements IEncryptedBlob {
+
+        /**
+         * Constructs a new EncryptedBlob.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: objectenc.IEncryptedBlob);
+
+        /** EncryptedBlob encType. */
+        public encType: objectenc.EncryptionType;
+
+        /** EncryptedBlob encData. */
+        public encData: Uint8Array;
+
+        /** EncryptedBlob encMetadata. */
+        public encMetadata: Uint8Array;
+
+        /** EncryptedBlob compressionType. */
+        public compressionType: objectenc.CompressionType;
+
+        /**
+         * Creates a new EncryptedBlob instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns EncryptedBlob instance
+         */
+        public static create(properties?: objectenc.IEncryptedBlob): objectenc.EncryptedBlob;
+
+        /**
+         * Encodes the specified EncryptedBlob message. Does not implicitly {@link objectenc.EncryptedBlob.verify|verify} messages.
+         * @param message EncryptedBlob message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: objectenc.IEncryptedBlob, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified EncryptedBlob message, length delimited. Does not implicitly {@link objectenc.EncryptedBlob.verify|verify} messages.
+         * @param message EncryptedBlob message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: objectenc.IEncryptedBlob, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an EncryptedBlob message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns EncryptedBlob
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): objectenc.EncryptedBlob;
+
+        /**
+         * Decodes an EncryptedBlob message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns EncryptedBlob
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): objectenc.EncryptedBlob;
+
+        /**
+         * Verifies an EncryptedBlob message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an EncryptedBlob message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns EncryptedBlob
+         */
+        public static fromObject(object: { [k: string]: any }): objectenc.EncryptedBlob;
+
+        /**
+         * Creates a plain object from an EncryptedBlob message. Also converts values to other types if specified.
+         * @param message EncryptedBlob
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: objectenc.EncryptedBlob, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this EncryptedBlob to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** EncryptionType enum. */
+    enum EncryptionType {
+        EncryptionType_UNENCRYPTED = 0,
+        EncryptionType_AES = 1,
+        EncryptionType_SECRET_BOX = 2
+    }
+
+    /** CompressionType enum. */
+    enum CompressionType {
+        CompressionType_UNCOMPRESSED = 0,
+        CompressionType_SNAPPY = 1
     }
 }

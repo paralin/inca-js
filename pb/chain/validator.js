@@ -9,6 +9,210 @@ var $Reader = $protobuf.Reader, $Writer = $protobuf.Writer, $util = $protobuf.ut
 // Exported root namespace
 var $root = $protobuf.roots["default"] || ($protobuf.roots["default"] = {});
 
+$root.chain = (function() {
+
+    /**
+     * Namespace chain.
+     * @exports chain
+     * @namespace
+     */
+    var chain = {};
+
+    chain.ValidatorState = (function() {
+
+        /**
+         * Properties of a ValidatorState.
+         * @memberof chain
+         * @interface IValidatorState
+         * @property {inca.IBlockRoundInfo|null} [lastVote] ValidatorState lastVote
+         */
+
+        /**
+         * Constructs a new ValidatorState.
+         * @memberof chain
+         * @classdesc Represents a ValidatorState.
+         * @implements IValidatorState
+         * @constructor
+         * @param {chain.IValidatorState=} [properties] Properties to set
+         */
+        function ValidatorState(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * ValidatorState lastVote.
+         * @member {inca.IBlockRoundInfo|null|undefined} lastVote
+         * @memberof chain.ValidatorState
+         * @instance
+         */
+        ValidatorState.prototype.lastVote = null;
+
+        /**
+         * Creates a new ValidatorState instance using the specified properties.
+         * @function create
+         * @memberof chain.ValidatorState
+         * @static
+         * @param {chain.IValidatorState=} [properties] Properties to set
+         * @returns {chain.ValidatorState} ValidatorState instance
+         */
+        ValidatorState.create = function create(properties) {
+            return new ValidatorState(properties);
+        };
+
+        /**
+         * Encodes the specified ValidatorState message. Does not implicitly {@link chain.ValidatorState.verify|verify} messages.
+         * @function encode
+         * @memberof chain.ValidatorState
+         * @static
+         * @param {chain.IValidatorState} message ValidatorState message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        ValidatorState.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.lastVote != null && message.hasOwnProperty("lastVote"))
+                $root.inca.BlockRoundInfo.encode(message.lastVote, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified ValidatorState message, length delimited. Does not implicitly {@link chain.ValidatorState.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof chain.ValidatorState
+         * @static
+         * @param {chain.IValidatorState} message ValidatorState message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        ValidatorState.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a ValidatorState message from the specified reader or buffer.
+         * @function decode
+         * @memberof chain.ValidatorState
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {chain.ValidatorState} ValidatorState
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        ValidatorState.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.chain.ValidatorState();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.lastVote = $root.inca.BlockRoundInfo.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a ValidatorState message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof chain.ValidatorState
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {chain.ValidatorState} ValidatorState
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        ValidatorState.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a ValidatorState message.
+         * @function verify
+         * @memberof chain.ValidatorState
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        ValidatorState.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.lastVote != null && message.hasOwnProperty("lastVote")) {
+                var error = $root.inca.BlockRoundInfo.verify(message.lastVote);
+                if (error)
+                    return "lastVote." + error;
+            }
+            return null;
+        };
+
+        /**
+         * Creates a ValidatorState message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof chain.ValidatorState
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {chain.ValidatorState} ValidatorState
+         */
+        ValidatorState.fromObject = function fromObject(object) {
+            if (object instanceof $root.chain.ValidatorState)
+                return object;
+            var message = new $root.chain.ValidatorState();
+            if (object.lastVote != null) {
+                if (typeof object.lastVote !== "object")
+                    throw TypeError(".chain.ValidatorState.lastVote: object expected");
+                message.lastVote = $root.inca.BlockRoundInfo.fromObject(object.lastVote);
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a ValidatorState message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof chain.ValidatorState
+         * @static
+         * @param {chain.ValidatorState} message ValidatorState
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        ValidatorState.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.lastVote = null;
+            if (message.lastVote != null && message.hasOwnProperty("lastVote"))
+                object.lastVote = $root.inca.BlockRoundInfo.toObject(message.lastVote, options);
+            return object;
+        };
+
+        /**
+         * Converts this ValidatorState to JSON.
+         * @function toJSON
+         * @memberof chain.ValidatorState
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        ValidatorState.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return ValidatorState;
+    })();
+
+    return chain;
+})();
+
 $root.inca = (function() {
 
     /**

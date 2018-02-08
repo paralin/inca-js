@@ -12,4 +12,12 @@ fi
 
 source $GEN_PROTO
 
-compile_proto
+build_proto_tree
+genproto inca
+genproto chain/chain
+genproto chain/chain_config
+genproto chain/proposer
+genproto chain/segment
+genproto chain/validator
+genproto block/block
+npm run precommit

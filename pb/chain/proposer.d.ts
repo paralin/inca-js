@@ -1,6 +1,100 @@
 /* tslint:disable */
 import * as $protobuf from "protobufjs";
 
+/** Namespace chain. */
+export namespace chain {
+
+    /** Properties of a ProposerState. */
+    interface IProposerState {
+
+        /** ProposerState lastProposal */
+        lastProposal?: (inca.IBlockRoundInfo|null);
+    }
+
+    /** Represents a ProposerState. */
+    class ProposerState implements IProposerState {
+
+        /**
+         * Constructs a new ProposerState.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: chain.IProposerState);
+
+        /** ProposerState lastProposal. */
+        public lastProposal?: (inca.IBlockRoundInfo|null);
+
+        /**
+         * Creates a new ProposerState instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns ProposerState instance
+         */
+        public static create(properties?: chain.IProposerState): chain.ProposerState;
+
+        /**
+         * Encodes the specified ProposerState message. Does not implicitly {@link chain.ProposerState.verify|verify} messages.
+         * @param message ProposerState message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: chain.IProposerState, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified ProposerState message, length delimited. Does not implicitly {@link chain.ProposerState.verify|verify} messages.
+         * @param message ProposerState message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: chain.IProposerState, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a ProposerState message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns ProposerState
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): chain.ProposerState;
+
+        /**
+         * Decodes a ProposerState message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns ProposerState
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): chain.ProposerState;
+
+        /**
+         * Verifies a ProposerState message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a ProposerState message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns ProposerState
+         */
+        public static fromObject(object: { [k: string]: any }): chain.ProposerState;
+
+        /**
+         * Creates a plain object from a ProposerState message. Also converts values to other types if specified.
+         * @param message ProposerState
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: chain.ProposerState, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this ProposerState to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+}
+
 /** Namespace inca. */
 export namespace inca {
 

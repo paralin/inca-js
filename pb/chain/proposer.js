@@ -9,6 +9,210 @@ var $Reader = $protobuf.Reader, $Writer = $protobuf.Writer, $util = $protobuf.ut
 // Exported root namespace
 var $root = $protobuf.roots["default"] || ($protobuf.roots["default"] = {});
 
+$root.chain = (function() {
+
+    /**
+     * Namespace chain.
+     * @exports chain
+     * @namespace
+     */
+    var chain = {};
+
+    chain.ProposerState = (function() {
+
+        /**
+         * Properties of a ProposerState.
+         * @memberof chain
+         * @interface IProposerState
+         * @property {inca.IBlockRoundInfo|null} [lastProposal] ProposerState lastProposal
+         */
+
+        /**
+         * Constructs a new ProposerState.
+         * @memberof chain
+         * @classdesc Represents a ProposerState.
+         * @implements IProposerState
+         * @constructor
+         * @param {chain.IProposerState=} [properties] Properties to set
+         */
+        function ProposerState(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * ProposerState lastProposal.
+         * @member {inca.IBlockRoundInfo|null|undefined} lastProposal
+         * @memberof chain.ProposerState
+         * @instance
+         */
+        ProposerState.prototype.lastProposal = null;
+
+        /**
+         * Creates a new ProposerState instance using the specified properties.
+         * @function create
+         * @memberof chain.ProposerState
+         * @static
+         * @param {chain.IProposerState=} [properties] Properties to set
+         * @returns {chain.ProposerState} ProposerState instance
+         */
+        ProposerState.create = function create(properties) {
+            return new ProposerState(properties);
+        };
+
+        /**
+         * Encodes the specified ProposerState message. Does not implicitly {@link chain.ProposerState.verify|verify} messages.
+         * @function encode
+         * @memberof chain.ProposerState
+         * @static
+         * @param {chain.IProposerState} message ProposerState message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        ProposerState.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.lastProposal != null && message.hasOwnProperty("lastProposal"))
+                $root.inca.BlockRoundInfo.encode(message.lastProposal, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified ProposerState message, length delimited. Does not implicitly {@link chain.ProposerState.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof chain.ProposerState
+         * @static
+         * @param {chain.IProposerState} message ProposerState message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        ProposerState.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a ProposerState message from the specified reader or buffer.
+         * @function decode
+         * @memberof chain.ProposerState
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {chain.ProposerState} ProposerState
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        ProposerState.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.chain.ProposerState();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.lastProposal = $root.inca.BlockRoundInfo.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a ProposerState message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof chain.ProposerState
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {chain.ProposerState} ProposerState
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        ProposerState.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a ProposerState message.
+         * @function verify
+         * @memberof chain.ProposerState
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        ProposerState.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.lastProposal != null && message.hasOwnProperty("lastProposal")) {
+                var error = $root.inca.BlockRoundInfo.verify(message.lastProposal);
+                if (error)
+                    return "lastProposal." + error;
+            }
+            return null;
+        };
+
+        /**
+         * Creates a ProposerState message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof chain.ProposerState
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {chain.ProposerState} ProposerState
+         */
+        ProposerState.fromObject = function fromObject(object) {
+            if (object instanceof $root.chain.ProposerState)
+                return object;
+            var message = new $root.chain.ProposerState();
+            if (object.lastProposal != null) {
+                if (typeof object.lastProposal !== "object")
+                    throw TypeError(".chain.ProposerState.lastProposal: object expected");
+                message.lastProposal = $root.inca.BlockRoundInfo.fromObject(object.lastProposal);
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a ProposerState message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof chain.ProposerState
+         * @static
+         * @param {chain.ProposerState} message ProposerState
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        ProposerState.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.lastProposal = null;
+            if (message.lastProposal != null && message.hasOwnProperty("lastProposal"))
+                object.lastProposal = $root.inca.BlockRoundInfo.toObject(message.lastProposal, options);
+            return object;
+        };
+
+        /**
+         * Converts this ProposerState to JSON.
+         * @function toJSON
+         * @memberof chain.ProposerState
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        ProposerState.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return ProposerState;
+    })();
+
+    return chain;
+})();
+
 $root.inca = (function() {
 
     /**
