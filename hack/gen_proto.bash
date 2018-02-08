@@ -13,6 +13,15 @@ fi
 source $GEN_PROTO
 
 build_proto_tree
-genproto inca
-genprotoset chain/chain proto/chain/chain.proto proto/chain/chain_config.proto
+genprotoset \
+    inca \
+    prototree/github.com/aperturerobotics/pbobject/pbobject.proto \
+    proto/inca.proto \
+    proto/chain/chain.proto \
+    proto/chain/chain_config.proto \
+    proto/chain/segment.proto \
+    proto/chain/validator.proto \
+    proto/chain/proposer.proto \
+    proto/encryption/convergentimmutable/convergent_immutable.proto
+git add ./pb
 npm run precommit

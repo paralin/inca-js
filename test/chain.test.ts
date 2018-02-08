@@ -1,4 +1,4 @@
-import { Chain } from '../chain'
+import { Chain, BuildChain } from '../chain'
 import { ObjectStore, LevelBlobDb, RemoteStore, LocalDB } from '@aperturerobotics/objstore'
 import { generateKeyPair } from '../key'
 
@@ -40,6 +40,10 @@ describe('Chain', () => {
     })
 
     it('should construct correctly', async () => {
-        let chain = new Chain(objStore, objStore, 'test-chain', await generateKeyPair('ed25519', 256))
+        let chain = new Chain(levelBlob, objStore, 'test-chain', await generateKeyPair('ed25519', 256))
+    })
+
+    it('should build a new chain correctly', async () => {
+        let chain = await BuildChain(levelBlob, objStore, 'test-chain', await generateKeyPair('ed25519', 256))
     })
 })

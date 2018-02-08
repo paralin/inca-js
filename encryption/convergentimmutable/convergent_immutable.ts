@@ -10,9 +10,19 @@ import {
     ILocalStore,
     InmemDB,
 } from '@aperturerobotics/objstore'
-import { inca } from '../../pb/chain'
-import { IEncryptionConfig } from '../../../pbobject/index';
+import {
+    IEncryptionConfig,
+    ObjectWrapper,
+    newObjectWrapper,
+} from '@aperturerobotics/pbobject'
+import {
+    inca,
+    convergentimmutable,
+    ConvergentImmutableConfig,
+} from '../../pb'
+
 import isEqual from 'arraybuffer-equal'
+import randombytes from 'randombytes'
 
 // StrategyType is the strategy type of this implementation.
 export const StrategyType = inca.EncryptionStrategy.EncryptionStrategy_ConvergentImmutable;
@@ -23,6 +33,7 @@ export const EncType = objectenc.EncryptionType.EncryptionType_SECRET_BOX;
 // CmpType is the compression type of this implementation.
 export const CmpType = objectenc.CompressionType.CompressionType_SNAPPY;
 
+// sampleLocalDb is used to get digests. temporary hack.
 const sampleLocalDb: ILocalStore = new LocalDB(new InmemDB())
 
 // ConvergentImmutable implements the convergent encryption strategy with immutable historic encryption.
@@ -30,8 +41,21 @@ const sampleLocalDb: ILocalStore = new LocalDB(new InmemDB())
 // If the key is changed in some block, the blocks following the change will be re-encrypted with the new key.
 // Immutable indicates that the state cannot be historically re-encrypted if the key is leaked.
 export class ConvergentImmutable implements IStrategy {
-    // key is the pre-shared key
-    private key: Uint8Array
+    constructor(
+        // key is the pre-shared key
+        private key: Uint8Array,
+    ) {
+        //
+    }
+
+    // buildArgs encodes the arguments of the strategy to a ObjectWrapper.
+    public buildArgs(): Promise<ObjectWrapper> {
+        let args = new ConvergentImmutableConfig({
+            preSharedKey: this.key,
+        })
+
+        return newObjectWrapper(args, {})
+    }
 
     // GetEncryptionStrategyType returns the encryption strategy type.
     public getEncryptionStrategyType(): inca.EncryptionStrategy {
@@ -59,8 +83,8 @@ export class ConvergentImmutable implements IStrategy {
             }
 
             let nonce = digest.slice(digest.length - 24)
-            if (nonce.length != 24) {
-                throw new Error('sliced digest nonce is not 24 bytes')
+            if (nonce.length !== 24) {
+                throw new Error('sliced digest nonce is not 24 bytes: ' + nonce.length)
             }
 
             sb.keyData = this.key
@@ -93,10 +117,15 @@ export class ConvergentImmutable implements IStrategy {
                 throw new Error('expected secret box resource')
             }
 
+            if (digest.length < 24) {
+                throw new Error('digest returned by localdb is less than 24 bytes')
+            }
+
             let sb = resource as ISecretBoxResource
             let nonce = digest.slice(digest.length - 24)
-            if (nonce.length != 24) {
-                throw new Error('sliced digest nonce is not 24 bytes')
+
+            if (nonce.length !== 24) {
+                throw new Error('sliced digest nonce is not 24 bytes: ' + nonce.length)
             }
 
             if (sb.encrypting && sb.encryptingData) {
@@ -133,6 +162,7 @@ export class ConvergentImmutable implements IStrategy {
     public getNodeMessageEncryptionConfigWithDigest(pubKey: any, digest: Uint8Array): IEncryptionConfig {
         let conf = this.getEncryptionConfigWithDigest(digest)
         conf.verifyKeys = [pubKey]
+        return conf
     }
 
     // GetBlockEncryptionConfig returns the encryption configuration for block messages.
@@ -144,4 +174,25 @@ export class ConvergentImmutable implements IStrategy {
     public getBlockEncryptionConfigWithDigest(digest: Uint8Array): IEncryptionConfig {
         return this.getEncryptionConfigWithDigest(digest)
     }
+}
+
+// newConvergentImmutableWithConfig builds a new convergent immutable instance from a configuration.
+export async function newConvergentImmutableWithConfig(conf: ObjectWrapper | null): Promise<IStrategy> {
+    let confObjTmpl = new Config()
+    if (!conf) {
+        throw new Error('convergent immutable requires configuration with pre-shared key')
+    }
+
+    let confObj = await conf.decodeToObject(confObjTmpl, {}) as Config
+    if (!confObj.preSharedKey || !confObj.preSharedKey.length) {
+        throw new Error('convergent immutable requires configuration with pre-shared key')
+    }
+
+    return new ConvergentImmutable(confObj.preSharedKey)
+}
+
+// newConvergentImmutable builds a new convergent immutable instance with a random psk.
+export async function newConvergentImmutable(): Promise<IStrategy> {
+    let psk = randombytes(32)
+    return new ConvergentImmutable(psk)
 }

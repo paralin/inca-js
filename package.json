@@ -13,7 +13,7 @@
         "node": ">=6.0.0"
     },
     "scripts": {
-        "lint": "tslint -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
+        "lint": "tslint -t codeFrame './**/*.ts' 'test/**/*.ts'",
         "prebuild": "rimraf dist",
         "test": "jest",
         "test:watch": "jest --watch",
@@ -55,7 +55,8 @@
             "/packages/objstore/",
             "/packages/pbobject/",
             "/packages/objectenc/",
-            "/packages/objectsig"
+            "/packages/objectsig/",
+            "/packages/storageref/"
         ],
         "coverageThreshold": {
             "global": {
@@ -104,8 +105,10 @@
         "multihashes": "^0.4.13",
         "multihashing": "^0.3.2",
         "node-webcrypto-ossl": "^1.0.33",
+        "peer-id": "^0.10.5",
         "protobufjs": "^6.8.0",
         "randombytes": "^2.0.6",
-        "typedarray-to-buffer": "^3.1.0"
+        "typedarray-to-buffer": "^3.1.0",
+        "uuid": "^3.2.1"
     }
 }

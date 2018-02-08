@@ -1,8 +1,10 @@
 import { inca } from '../pb'
-import { pbobject, IEncryptionConfig } from '@aperturerobotics/pbobject'
+import { pbobject, IEncryptionConfig, ObjectWrapper } from '@aperturerobotics/pbobject'
 
 // IStrategy is a blockchain encryption implementation strategy.
 export interface IStrategy {
+    // buildArgs encodes the arguments of the strategy to a ObjectWrapper.
+    buildArgs(): Promise<ObjectWrapper>
     // GetEncryptionStrategyType returns the encryption strategy type.
     getEncryptionStrategyType(): inca.EncryptionStrategy
     // GetGenesisEncryptionConfig returns the encryption configuration for encrypting the genesis block.

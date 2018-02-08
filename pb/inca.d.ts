@@ -1,6 +1,521 @@
 /* tslint:disable */
 import * as $protobuf from "protobufjs";
 
+/** Namespace pbobject. */
+export namespace pbobject {
+
+    /** Properties of an ObjectWrapper. */
+    interface IObjectWrapper {
+
+        /** ObjectWrapper objectTypeCrc */
+        objectTypeCrc?: (number|null);
+
+        /** ObjectWrapper encBlob */
+        encBlob?: (objectenc.IEncryptedBlob|null);
+
+        /** ObjectWrapper signatures */
+        signatures?: (objectsig.ISignature[]|null);
+    }
+
+    /** Represents an ObjectWrapper. */
+    class ObjectWrapper implements IObjectWrapper {
+
+        /**
+         * Constructs a new ObjectWrapper.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: pbobject.IObjectWrapper);
+
+        /** ObjectWrapper objectTypeCrc. */
+        public objectTypeCrc: number;
+
+        /** ObjectWrapper encBlob. */
+        public encBlob?: (objectenc.IEncryptedBlob|null);
+
+        /** ObjectWrapper signatures. */
+        public signatures: objectsig.ISignature[];
+
+        /**
+         * Creates a new ObjectWrapper instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns ObjectWrapper instance
+         */
+        public static create(properties?: pbobject.IObjectWrapper): pbobject.ObjectWrapper;
+
+        /**
+         * Encodes the specified ObjectWrapper message. Does not implicitly {@link pbobject.ObjectWrapper.verify|verify} messages.
+         * @param message ObjectWrapper message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: pbobject.IObjectWrapper, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified ObjectWrapper message, length delimited. Does not implicitly {@link pbobject.ObjectWrapper.verify|verify} messages.
+         * @param message ObjectWrapper message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: pbobject.IObjectWrapper, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an ObjectWrapper message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns ObjectWrapper
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): pbobject.ObjectWrapper;
+
+        /**
+         * Decodes an ObjectWrapper message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns ObjectWrapper
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): pbobject.ObjectWrapper;
+
+        /**
+         * Verifies an ObjectWrapper message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an ObjectWrapper message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns ObjectWrapper
+         */
+        public static fromObject(object: { [k: string]: any }): pbobject.ObjectWrapper;
+
+        /**
+         * Creates a plain object from an ObjectWrapper message. Also converts values to other types if specified.
+         * @param message ObjectWrapper
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: pbobject.ObjectWrapper, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this ObjectWrapper to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an ObjectTypeID. */
+    interface IObjectTypeID {
+
+        /** ObjectTypeID typeUuid */
+        typeUuid?: (string|null);
+    }
+
+    /** Represents an ObjectTypeID. */
+    class ObjectTypeID implements IObjectTypeID {
+
+        /**
+         * Constructs a new ObjectTypeID.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: pbobject.IObjectTypeID);
+
+        /** ObjectTypeID typeUuid. */
+        public typeUuid: string;
+
+        /**
+         * Creates a new ObjectTypeID instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns ObjectTypeID instance
+         */
+        public static create(properties?: pbobject.IObjectTypeID): pbobject.ObjectTypeID;
+
+        /**
+         * Encodes the specified ObjectTypeID message. Does not implicitly {@link pbobject.ObjectTypeID.verify|verify} messages.
+         * @param message ObjectTypeID message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: pbobject.IObjectTypeID, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified ObjectTypeID message, length delimited. Does not implicitly {@link pbobject.ObjectTypeID.verify|verify} messages.
+         * @param message ObjectTypeID message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: pbobject.IObjectTypeID, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an ObjectTypeID message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns ObjectTypeID
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): pbobject.ObjectTypeID;
+
+        /**
+         * Decodes an ObjectTypeID message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns ObjectTypeID
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): pbobject.ObjectTypeID;
+
+        /**
+         * Verifies an ObjectTypeID message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an ObjectTypeID message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns ObjectTypeID
+         */
+        public static fromObject(object: { [k: string]: any }): pbobject.ObjectTypeID;
+
+        /**
+         * Creates a plain object from an ObjectTypeID message. Also converts values to other types if specified.
+         * @param message ObjectTypeID
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: pbobject.ObjectTypeID, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this ObjectTypeID to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+}
+
+/** Namespace timestamp. */
+export namespace timestamp {
+
+    /** Properties of a Timestamp. */
+    interface ITimestamp {
+
+        /** Timestamp timeUnixMs */
+        timeUnixMs?: (number|Long|null);
+    }
+
+    /** Represents a Timestamp. */
+    class Timestamp implements ITimestamp {
+
+        /**
+         * Constructs a new Timestamp.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: timestamp.ITimestamp);
+
+        /** Timestamp timeUnixMs. */
+        public timeUnixMs: (number|Long);
+
+        /**
+         * Creates a new Timestamp instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns Timestamp instance
+         */
+        public static create(properties?: timestamp.ITimestamp): timestamp.Timestamp;
+
+        /**
+         * Encodes the specified Timestamp message. Does not implicitly {@link timestamp.Timestamp.verify|verify} messages.
+         * @param message Timestamp message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: timestamp.ITimestamp, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified Timestamp message, length delimited. Does not implicitly {@link timestamp.Timestamp.verify|verify} messages.
+         * @param message Timestamp message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: timestamp.ITimestamp, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a Timestamp message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns Timestamp
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): timestamp.Timestamp;
+
+        /**
+         * Decodes a Timestamp message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns Timestamp
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): timestamp.Timestamp;
+
+        /**
+         * Verifies a Timestamp message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a Timestamp message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns Timestamp
+         */
+        public static fromObject(object: { [k: string]: any }): timestamp.Timestamp;
+
+        /**
+         * Creates a plain object from a Timestamp message. Also converts values to other types if specified.
+         * @param message Timestamp
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: timestamp.Timestamp, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this Timestamp to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+}
+
+/** Namespace objectenc. */
+export namespace objectenc {
+
+    /** Properties of an EncryptedBlob. */
+    interface IEncryptedBlob {
+
+        /** EncryptedBlob encType */
+        encType?: (objectenc.EncryptionType|null);
+
+        /** EncryptedBlob encData */
+        encData?: (Uint8Array|null);
+
+        /** EncryptedBlob encMetadata */
+        encMetadata?: (Uint8Array|null);
+
+        /** EncryptedBlob compressionType */
+        compressionType?: (objectenc.CompressionType|null);
+    }
+
+    /** Represents an EncryptedBlob. */
+    class EncryptedBlob implements IEncryptedBlob {
+
+        /**
+         * Constructs a new EncryptedBlob.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: objectenc.IEncryptedBlob);
+
+        /** EncryptedBlob encType. */
+        public encType: objectenc.EncryptionType;
+
+        /** EncryptedBlob encData. */
+        public encData: Uint8Array;
+
+        /** EncryptedBlob encMetadata. */
+        public encMetadata: Uint8Array;
+
+        /** EncryptedBlob compressionType. */
+        public compressionType: objectenc.CompressionType;
+
+        /**
+         * Creates a new EncryptedBlob instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns EncryptedBlob instance
+         */
+        public static create(properties?: objectenc.IEncryptedBlob): objectenc.EncryptedBlob;
+
+        /**
+         * Encodes the specified EncryptedBlob message. Does not implicitly {@link objectenc.EncryptedBlob.verify|verify} messages.
+         * @param message EncryptedBlob message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: objectenc.IEncryptedBlob, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified EncryptedBlob message, length delimited. Does not implicitly {@link objectenc.EncryptedBlob.verify|verify} messages.
+         * @param message EncryptedBlob message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: objectenc.IEncryptedBlob, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an EncryptedBlob message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns EncryptedBlob
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): objectenc.EncryptedBlob;
+
+        /**
+         * Decodes an EncryptedBlob message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns EncryptedBlob
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): objectenc.EncryptedBlob;
+
+        /**
+         * Verifies an EncryptedBlob message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an EncryptedBlob message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns EncryptedBlob
+         */
+        public static fromObject(object: { [k: string]: any }): objectenc.EncryptedBlob;
+
+        /**
+         * Creates a plain object from an EncryptedBlob message. Also converts values to other types if specified.
+         * @param message EncryptedBlob
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: objectenc.EncryptedBlob, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this EncryptedBlob to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** EncryptionType enum. */
+    enum EncryptionType {
+        EncryptionType_UNENCRYPTED = 0,
+        EncryptionType_AES = 1,
+        EncryptionType_SECRET_BOX = 2
+    }
+
+    /** CompressionType enum. */
+    enum CompressionType {
+        CompressionType_UNCOMPRESSED = 0,
+        CompressionType_SNAPPY = 1
+    }
+}
+
+/** Namespace objectsig. */
+export namespace objectsig {
+
+    /** Properties of a Signature. */
+    interface ISignature {
+
+        /** Signature keyMultihash */
+        keyMultihash?: (Uint8Array|null);
+
+        /** Signature signature */
+        signature?: (Uint8Array|null);
+    }
+
+    /** Represents a Signature. */
+    class Signature implements ISignature {
+
+        /**
+         * Constructs a new Signature.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: objectsig.ISignature);
+
+        /** Signature keyMultihash. */
+        public keyMultihash: Uint8Array;
+
+        /** Signature signature. */
+        public signature: Uint8Array;
+
+        /**
+         * Creates a new Signature instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns Signature instance
+         */
+        public static create(properties?: objectsig.ISignature): objectsig.Signature;
+
+        /**
+         * Encodes the specified Signature message. Does not implicitly {@link objectsig.Signature.verify|verify} messages.
+         * @param message Signature message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: objectsig.ISignature, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified Signature message, length delimited. Does not implicitly {@link objectsig.Signature.verify|verify} messages.
+         * @param message Signature message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: objectsig.ISignature, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a Signature message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns Signature
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): objectsig.Signature;
+
+        /**
+         * Decodes a Signature message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns Signature
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): objectsig.Signature;
+
+        /**
+         * Verifies a Signature message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a Signature message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns Signature
+         */
+        public static fromObject(object: { [k: string]: any }): objectsig.Signature;
+
+        /**
+         * Creates a plain object from a Signature message. Also converts values to other types if specified.
+         * @param message Signature
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: objectsig.Signature, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this Signature to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+}
+
 /** Namespace inca. */
 export namespace inca {
 
@@ -1143,100 +1658,6 @@ export namespace inca {
     }
 }
 
-/** Namespace timestamp. */
-export namespace timestamp {
-
-    /** Properties of a Timestamp. */
-    interface ITimestamp {
-
-        /** Timestamp timeUnixMs */
-        timeUnixMs?: (number|Long|null);
-    }
-
-    /** Represents a Timestamp. */
-    class Timestamp implements ITimestamp {
-
-        /**
-         * Constructs a new Timestamp.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: timestamp.ITimestamp);
-
-        /** Timestamp timeUnixMs. */
-        public timeUnixMs: (number|Long);
-
-        /**
-         * Creates a new Timestamp instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns Timestamp instance
-         */
-        public static create(properties?: timestamp.ITimestamp): timestamp.Timestamp;
-
-        /**
-         * Encodes the specified Timestamp message. Does not implicitly {@link timestamp.Timestamp.verify|verify} messages.
-         * @param message Timestamp message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: timestamp.ITimestamp, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Encodes the specified Timestamp message, length delimited. Does not implicitly {@link timestamp.Timestamp.verify|verify} messages.
-         * @param message Timestamp message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: timestamp.ITimestamp, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Decodes a Timestamp message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns Timestamp
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): timestamp.Timestamp;
-
-        /**
-         * Decodes a Timestamp message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns Timestamp
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): timestamp.Timestamp;
-
-        /**
-         * Verifies a Timestamp message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a Timestamp message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns Timestamp
-         */
-        public static fromObject(object: { [k: string]: any }): timestamp.Timestamp;
-
-        /**
-         * Creates a plain object from a Timestamp message. Also converts values to other types if specified.
-         * @param message Timestamp
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: timestamp.Timestamp, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this Timestamp to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-}
-
 /** Namespace storageref. */
 export namespace storageref {
 
@@ -1530,100 +1951,615 @@ export namespace storageref {
     }
 }
 
-/** Namespace objectsig. */
-export namespace objectsig {
+/** Namespace chain. */
+export namespace chain {
 
-    /** Properties of a Signature. */
-    interface ISignature {
+    /** Properties of a ChainState. */
+    interface IChainState {
 
-        /** Signature keyMultihash */
-        keyMultihash?: (Uint8Array|null);
+        /** ChainState stateSegment */
+        stateSegment?: (string|null);
 
-        /** Signature signature */
-        signature?: (Uint8Array|null);
+        /** ChainState lastHeight */
+        lastHeight?: (number|Long|null);
+
+        /** ChainState lastRound */
+        lastRound?: (number|Long|null);
     }
 
-    /** Represents a Signature. */
-    class Signature implements ISignature {
+    /** Represents a ChainState. */
+    class ChainState implements IChainState {
 
         /**
-         * Constructs a new Signature.
+         * Constructs a new ChainState.
          * @param [properties] Properties to set
          */
-        constructor(properties?: objectsig.ISignature);
+        constructor(properties?: chain.IChainState);
 
-        /** Signature keyMultihash. */
-        public keyMultihash: Uint8Array;
+        /** ChainState stateSegment. */
+        public stateSegment: string;
 
-        /** Signature signature. */
-        public signature: Uint8Array;
+        /** ChainState lastHeight. */
+        public lastHeight: (number|Long);
+
+        /** ChainState lastRound. */
+        public lastRound: (number|Long);
 
         /**
-         * Creates a new Signature instance using the specified properties.
+         * Creates a new ChainState instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns Signature instance
+         * @returns ChainState instance
          */
-        public static create(properties?: objectsig.ISignature): objectsig.Signature;
+        public static create(properties?: chain.IChainState): chain.ChainState;
 
         /**
-         * Encodes the specified Signature message. Does not implicitly {@link objectsig.Signature.verify|verify} messages.
-         * @param message Signature message or plain object to encode
+         * Encodes the specified ChainState message. Does not implicitly {@link chain.ChainState.verify|verify} messages.
+         * @param message ChainState message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: objectsig.ISignature, writer?: $protobuf.Writer): $protobuf.Writer;
+        public static encode(message: chain.IChainState, writer?: $protobuf.Writer): $protobuf.Writer;
 
         /**
-         * Encodes the specified Signature message, length delimited. Does not implicitly {@link objectsig.Signature.verify|verify} messages.
-         * @param message Signature message or plain object to encode
+         * Encodes the specified ChainState message, length delimited. Does not implicitly {@link chain.ChainState.verify|verify} messages.
+         * @param message ChainState message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: objectsig.ISignature, writer?: $protobuf.Writer): $protobuf.Writer;
+        public static encodeDelimited(message: chain.IChainState, writer?: $protobuf.Writer): $protobuf.Writer;
 
         /**
-         * Decodes a Signature message from the specified reader or buffer.
+         * Decodes a ChainState message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns Signature
+         * @returns ChainState
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): objectsig.Signature;
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): chain.ChainState;
 
         /**
-         * Decodes a Signature message from the specified reader or buffer, length delimited.
+         * Decodes a ChainState message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns Signature
+         * @returns ChainState
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): objectsig.Signature;
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): chain.ChainState;
 
         /**
-         * Verifies a Signature message.
+         * Verifies a ChainState message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a Signature message from a plain object. Also converts values to their respective internal types.
+         * Creates a ChainState message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns Signature
+         * @returns ChainState
          */
-        public static fromObject(object: { [k: string]: any }): objectsig.Signature;
+        public static fromObject(object: { [k: string]: any }): chain.ChainState;
 
         /**
-         * Creates a plain object from a Signature message. Also converts values to other types if specified.
-         * @param message Signature
+         * Creates a plain object from a ChainState message. Also converts values to other types if specified.
+         * @param message ChainState
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: objectsig.Signature, options?: $protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: chain.ChainState, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this Signature to JSON.
+         * Converts this ChainState to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a Config. */
+    interface IConfig {
+
+        /** Config genesisRef */
+        genesisRef?: (storageref.IStorageRef|null);
+
+        /** Config encryptionArgs */
+        encryptionArgs?: (pbobject.IObjectWrapper|null);
+
+        /** Config encryptionStrategy */
+        encryptionStrategy?: (inca.EncryptionStrategy|null);
+    }
+
+    /** Represents a Config. */
+    class Config implements IConfig {
+
+        /**
+         * Constructs a new Config.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: chain.IConfig);
+
+        /** Config genesisRef. */
+        public genesisRef?: (storageref.IStorageRef|null);
+
+        /** Config encryptionArgs. */
+        public encryptionArgs?: (pbobject.IObjectWrapper|null);
+
+        /** Config encryptionStrategy. */
+        public encryptionStrategy: inca.EncryptionStrategy;
+
+        /**
+         * Creates a new Config instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns Config instance
+         */
+        public static create(properties?: chain.IConfig): chain.Config;
+
+        /**
+         * Encodes the specified Config message. Does not implicitly {@link chain.Config.verify|verify} messages.
+         * @param message Config message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: chain.IConfig, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified Config message, length delimited. Does not implicitly {@link chain.Config.verify|verify} messages.
+         * @param message Config message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: chain.IConfig, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a Config message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns Config
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): chain.Config;
+
+        /**
+         * Decodes a Config message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns Config
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): chain.Config;
+
+        /**
+         * Verifies a Config message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a Config message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns Config
+         */
+        public static fromObject(object: { [k: string]: any }): chain.Config;
+
+        /**
+         * Creates a plain object from a Config message. Also converts values to other types if specified.
+         * @param message Config
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: chain.Config, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this Config to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a SegmentState. */
+    interface ISegmentState {
+
+        /** SegmentState id */
+        id?: (string|null);
+
+        /** SegmentState status */
+        status?: (chain.SegmentStatus|null);
+
+        /** SegmentState headBlock */
+        headBlock?: (storageref.IStorageRef|null);
+
+        /** SegmentState tailBlock */
+        tailBlock?: (storageref.IStorageRef|null);
+
+        /** SegmentState segmentPrev */
+        segmentPrev?: (string|null);
+
+        /** SegmentState segmentNext */
+        segmentNext?: (string|null);
+
+        /** SegmentState tailBlockRound */
+        tailBlockRound?: (inca.IBlockRoundInfo|null);
+    }
+
+    /** Represents a SegmentState. */
+    class SegmentState implements ISegmentState {
+
+        /**
+         * Constructs a new SegmentState.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: chain.ISegmentState);
+
+        /** SegmentState id. */
+        public id: string;
+
+        /** SegmentState status. */
+        public status: chain.SegmentStatus;
+
+        /** SegmentState headBlock. */
+        public headBlock?: (storageref.IStorageRef|null);
+
+        /** SegmentState tailBlock. */
+        public tailBlock?: (storageref.IStorageRef|null);
+
+        /** SegmentState segmentPrev. */
+        public segmentPrev: string;
+
+        /** SegmentState segmentNext. */
+        public segmentNext: string;
+
+        /** SegmentState tailBlockRound. */
+        public tailBlockRound?: (inca.IBlockRoundInfo|null);
+
+        /**
+         * Creates a new SegmentState instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns SegmentState instance
+         */
+        public static create(properties?: chain.ISegmentState): chain.SegmentState;
+
+        /**
+         * Encodes the specified SegmentState message. Does not implicitly {@link chain.SegmentState.verify|verify} messages.
+         * @param message SegmentState message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: chain.ISegmentState, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified SegmentState message, length delimited. Does not implicitly {@link chain.SegmentState.verify|verify} messages.
+         * @param message SegmentState message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: chain.ISegmentState, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a SegmentState message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns SegmentState
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): chain.SegmentState;
+
+        /**
+         * Decodes a SegmentState message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns SegmentState
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): chain.SegmentState;
+
+        /**
+         * Verifies a SegmentState message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a SegmentState message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns SegmentState
+         */
+        public static fromObject(object: { [k: string]: any }): chain.SegmentState;
+
+        /**
+         * Creates a plain object from a SegmentState message. Also converts values to other types if specified.
+         * @param message SegmentState
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: chain.SegmentState, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this SegmentState to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** SegmentStatus enum. */
+    enum SegmentStatus {
+        SegmentStatus_INVALID = 0,
+        SegmentStatus_DISJOINTED = 1,
+        SegmentStatus_VALID = 2
+    }
+
+    /** Properties of a ValidatorState. */
+    interface IValidatorState {
+
+        /** ValidatorState lastVote */
+        lastVote?: (inca.IBlockRoundInfo|null);
+    }
+
+    /** Represents a ValidatorState. */
+    class ValidatorState implements IValidatorState {
+
+        /**
+         * Constructs a new ValidatorState.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: chain.IValidatorState);
+
+        /** ValidatorState lastVote. */
+        public lastVote?: (inca.IBlockRoundInfo|null);
+
+        /**
+         * Creates a new ValidatorState instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns ValidatorState instance
+         */
+        public static create(properties?: chain.IValidatorState): chain.ValidatorState;
+
+        /**
+         * Encodes the specified ValidatorState message. Does not implicitly {@link chain.ValidatorState.verify|verify} messages.
+         * @param message ValidatorState message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: chain.IValidatorState, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified ValidatorState message, length delimited. Does not implicitly {@link chain.ValidatorState.verify|verify} messages.
+         * @param message ValidatorState message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: chain.IValidatorState, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a ValidatorState message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns ValidatorState
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): chain.ValidatorState;
+
+        /**
+         * Decodes a ValidatorState message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns ValidatorState
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): chain.ValidatorState;
+
+        /**
+         * Verifies a ValidatorState message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a ValidatorState message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns ValidatorState
+         */
+        public static fromObject(object: { [k: string]: any }): chain.ValidatorState;
+
+        /**
+         * Creates a plain object from a ValidatorState message. Also converts values to other types if specified.
+         * @param message ValidatorState
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: chain.ValidatorState, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this ValidatorState to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a ProposerState. */
+    interface IProposerState {
+
+        /** ProposerState lastProposal */
+        lastProposal?: (inca.IBlockRoundInfo|null);
+    }
+
+    /** Represents a ProposerState. */
+    class ProposerState implements IProposerState {
+
+        /**
+         * Constructs a new ProposerState.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: chain.IProposerState);
+
+        /** ProposerState lastProposal. */
+        public lastProposal?: (inca.IBlockRoundInfo|null);
+
+        /**
+         * Creates a new ProposerState instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns ProposerState instance
+         */
+        public static create(properties?: chain.IProposerState): chain.ProposerState;
+
+        /**
+         * Encodes the specified ProposerState message. Does not implicitly {@link chain.ProposerState.verify|verify} messages.
+         * @param message ProposerState message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: chain.IProposerState, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified ProposerState message, length delimited. Does not implicitly {@link chain.ProposerState.verify|verify} messages.
+         * @param message ProposerState message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: chain.IProposerState, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a ProposerState message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns ProposerState
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): chain.ProposerState;
+
+        /**
+         * Decodes a ProposerState message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns ProposerState
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): chain.ProposerState;
+
+        /**
+         * Verifies a ProposerState message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a ProposerState message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns ProposerState
+         */
+        public static fromObject(object: { [k: string]: any }): chain.ProposerState;
+
+        /**
+         * Creates a plain object from a ProposerState message. Also converts values to other types if specified.
+         * @param message ProposerState
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: chain.ProposerState, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this ProposerState to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+}
+
+/** Namespace convergentimmutable. */
+export namespace convergentimmutable {
+
+    /** Properties of a Config. */
+    interface IConfig {
+
+        /** Config preSharedKey */
+        preSharedKey?: (Uint8Array|null);
+    }
+
+    /** Represents a Config. */
+    class Config implements IConfig {
+
+        /**
+         * Constructs a new Config.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: convergentimmutable.IConfig);
+
+        /** Config preSharedKey. */
+        public preSharedKey: Uint8Array;
+
+        /**
+         * Creates a new Config instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns Config instance
+         */
+        public static create(properties?: convergentimmutable.IConfig): convergentimmutable.Config;
+
+        /**
+         * Encodes the specified Config message. Does not implicitly {@link convergentimmutable.Config.verify|verify} messages.
+         * @param message Config message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: convergentimmutable.IConfig, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified Config message, length delimited. Does not implicitly {@link convergentimmutable.Config.verify|verify} messages.
+         * @param message Config message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: convergentimmutable.IConfig, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a Config message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns Config
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): convergentimmutable.Config;
+
+        /**
+         * Decodes a Config message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns Config
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): convergentimmutable.Config;
+
+        /**
+         * Verifies a Config message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a Config message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns Config
+         */
+        public static fromObject(object: { [k: string]: any }): convergentimmutable.Config;
+
+        /**
+         * Creates a plain object from a Config message. Also converts values to other types if specified.
+         * @param message Config
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: convergentimmutable.Config, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this Config to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };

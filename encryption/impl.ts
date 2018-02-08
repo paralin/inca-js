@@ -1,13 +1,29 @@
 import { ObjectWrapper } from '@aperturerobotics/pbobject'
 import { IStrategy } from './encryption'
 import { inca } from '../pb/chain'
-import { newConvergentImmutable } from './convergentimmutable'
+import { newConvergentImmutableWithConfig } from './convergentimmutable'
 
 // EncryptionStrategyCtor is a constructor for an encryption strategy with optional arguments wrapped in a ObjectWrapper.
-export type EncryptionStrategyCtor = function(conf: ObjectWrapper | null): Promise<IStrategy>;
+export type EncryptionStrategyCtor = (conf: ObjectWrapper | null) => Promise<IStrategy>;
 
 // encryptionStratImplMap maps encryption strategies to encryption strategy implementations.
 export type encryptionStratImplMap = { [key: number]: EncryptionStrategyCtor };
 
 let impls: encryptionStratImplMap = {}
-impls[inca.EncryptionStrategy.EncryptionStrategy_ConvergentImmutable] = 
+impls[inca.EncryptionStrategy.EncryptionStrategy_ConvergentImmutable] = newConvergentImmutableWithConfig
+
+// GetEncryptionStrategyCtor returns the constructor for the encryption strategy or throws.
+export function GetEncryptionStrategyCtor(kind: inca.EncryptionStrategy): EncryptionStrategyCtor {
+    let ctor = impls[kind]
+    if (!ctor) {
+        throw new Error('encryption strategy kind not known: ' + kind)
+    }
+
+    return ctor
+}
+
+// BuildEncryptionStrategy tries to build an encryption strategy given type and args.
+export function BuildEncryptionStrategy(kind: inca.EncryptionStrategy, args: ObjectWrapper): Promise<IStrategy> {
+    let stratCtor = GetEncryptionStrategyCtor(kind)
+    return stratCtor(args)
+}

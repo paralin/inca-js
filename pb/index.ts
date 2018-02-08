@@ -1,3 +1,2 @@
-export { inca } from './inca'
-export * from './chain'
-export * from './block'
+export * from './inca'
+export * from './inca-obj'
