@@ -10,3 +10,5 @@ compiled
 .awcache
 prototree
 .#*
+test-level-db/
+test-ipfs-repo/
