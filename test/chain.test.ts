@@ -1,49 +1,43 @@
 import { Chain, BuildChain } from '../chain'
 import { ObjectStore, LevelBlobDb, RemoteStore, LocalDB } from '@aperturerobotics/objstore'
 import { generateKeyPair } from '../key'
+import { Testbed, buildIPFS } from './common'
 
 import * as lcrypto from 'libp2p-crypto'
 import IPFS from 'ipfs'
 import randombytes from 'randombytes'
 
-async function buildIPFS(): Promise<IPFS> {
-    let ipfs = new IPFS({
-        repo: './test-ipfs-repo'
-    })
-    return new Promise<IPFS>((resolve, reject) => {
-        ipfs.on('ready', () => {
-            resolve(ipfs)
-        })
-    })
-}
-
 describe('Chain', () => {
     let key = randombytes(32)
     let nonce = randombytes(24)
+
     let ipfs: IPFS
-    let levelBlob: LevelBlobDb
-    let remoteStore: RemoteStore
-    let localStore: LocalDB
-    let objStore: ObjectStore
+    let testbed: Testbed
 
     beforeAll(async () => {
         ipfs = await buildIPFS()
-        levelBlob = new LevelBlobDb('./test-level-db')
-        remoteStore = new RemoteStore(ipfs)
-        localStore = new LocalDB(levelBlob)
-        objStore = new ObjectStore(localStore, remoteStore)
+        testbed = new Testbed(ipfs)
     })
 
     afterAll(async () => {
-        await levelBlob.close()
-        ipfs.stop()
+        await testbed.teardown()
     })
 
     it('should construct correctly', async () => {
-        let chain = new Chain(levelBlob, objStore, 'test-chain', await generateKeyPair('ed25519', 256))
+        let chain = new Chain(
+            testbed.levelBlob,
+            testbed.objStore,
+            'test-chain',
+            await generateKeyPair('ed25519', 256),
+        )
     })
 
     it('should build a new chain correctly', async () => {
-        let chain = await BuildChain(levelBlob, objStore, 'test-chain', await generateKeyPair('ed25519', 256))
+        let chain = await BuildChain(
+            testbed.levelBlob,
+            testbed.objStore,
+            'test-chain',
+            await generateKeyPair('ed25519', 256),
+        )
     })
 })

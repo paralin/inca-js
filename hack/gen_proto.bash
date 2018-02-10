@@ -22,6 +22,7 @@ genprotoset \
     proto/chain/segment.proto \
     proto/chain/validator.proto \
     proto/chain/proposer.proto \
+    proto/block/block.proto \
     proto/encryption/convergentimmutable/convergent_immutable.proto
 git add ./pb
 npm run precommit

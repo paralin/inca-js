@@ -169,6 +169,26 @@ export class BlockHeader extends inca.BlockHeader implements IObject {
 
 // Block is a block object.
 export class Block extends inca.Block implements IObject {
+    // header is the attached block header.
+    private header: BlockHeader
+
+    constructor(obj?: inca.Block, header?: BlockHeader) {
+        super(obj)
+        if (header) {
+            this.header = header
+        }
+    }
+
+    // getHeader returns the attached header.
+    public getHeader(): BlockHeader {
+        return this.header
+    }
+
+    // setHeader attaches a header to the block.
+    public setHeader(header: BlockHeader) {
+        this.header = header
+    }
+
     /* Returns the object type ID.
      * @param message Protobuf object to encode
      * @param [writer] Writer to encode to

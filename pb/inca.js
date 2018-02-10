@@ -5981,6 +5981,233 @@ $root.chain = (function() {
     return chain;
 })();
 
+$root.block = (function() {
+
+    /**
+     * Namespace block.
+     * @exports block
+     * @namespace
+     */
+    var block = {};
+
+    block.State = (function() {
+
+        /**
+         * Properties of a State.
+         * @memberof block
+         * @interface IState
+         * @property {storageref.IStorageRef|null} [nextBlock] State nextBlock
+         * @property {string|null} [segmentId] State segmentId
+         */
+
+        /**
+         * Constructs a new State.
+         * @memberof block
+         * @classdesc Represents a State.
+         * @implements IState
+         * @constructor
+         * @param {block.IState=} [properties] Properties to set
+         */
+        function State(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * State nextBlock.
+         * @member {storageref.IStorageRef|null|undefined} nextBlock
+         * @memberof block.State
+         * @instance
+         */
+        State.prototype.nextBlock = null;
+
+        /**
+         * State segmentId.
+         * @member {string} segmentId
+         * @memberof block.State
+         * @instance
+         */
+        State.prototype.segmentId = "";
+
+        /**
+         * Creates a new State instance using the specified properties.
+         * @function create
+         * @memberof block.State
+         * @static
+         * @param {block.IState=} [properties] Properties to set
+         * @returns {block.State} State instance
+         */
+        State.create = function create(properties) {
+            return new State(properties);
+        };
+
+        /**
+         * Encodes the specified State message. Does not implicitly {@link block.State.verify|verify} messages.
+         * @function encode
+         * @memberof block.State
+         * @static
+         * @param {block.IState} message State message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        State.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.nextBlock != null && message.hasOwnProperty("nextBlock"))
+                $root.storageref.StorageRef.encode(message.nextBlock, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            if (message.segmentId != null && message.hasOwnProperty("segmentId"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.segmentId);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified State message, length delimited. Does not implicitly {@link block.State.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof block.State
+         * @static
+         * @param {block.IState} message State message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        State.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a State message from the specified reader or buffer.
+         * @function decode
+         * @memberof block.State
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {block.State} State
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        State.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.block.State();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.nextBlock = $root.storageref.StorageRef.decode(reader, reader.uint32());
+                    break;
+                case 2:
+                    message.segmentId = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a State message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof block.State
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {block.State} State
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        State.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a State message.
+         * @function verify
+         * @memberof block.State
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        State.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.nextBlock != null && message.hasOwnProperty("nextBlock")) {
+                var error = $root.storageref.StorageRef.verify(message.nextBlock);
+                if (error)
+                    return "nextBlock." + error;
+            }
+            if (message.segmentId != null && message.hasOwnProperty("segmentId"))
+                if (!$util.isString(message.segmentId))
+                    return "segmentId: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a State message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof block.State
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {block.State} State
+         */
+        State.fromObject = function fromObject(object) {
+            if (object instanceof $root.block.State)
+                return object;
+            var message = new $root.block.State();
+            if (object.nextBlock != null) {
+                if (typeof object.nextBlock !== "object")
+                    throw TypeError(".block.State.nextBlock: object expected");
+                message.nextBlock = $root.storageref.StorageRef.fromObject(object.nextBlock);
+            }
+            if (object.segmentId != null)
+                message.segmentId = String(object.segmentId);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a State message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof block.State
+         * @static
+         * @param {block.State} message State
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        State.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.nextBlock = null;
+                object.segmentId = "";
+            }
+            if (message.nextBlock != null && message.hasOwnProperty("nextBlock"))
+                object.nextBlock = $root.storageref.StorageRef.toObject(message.nextBlock, options);
+            if (message.segmentId != null && message.hasOwnProperty("segmentId"))
+                object.segmentId = message.segmentId;
+            return object;
+        };
+
+        /**
+         * Converts this State to JSON.
+         * @function toJSON
+         * @memberof block.State
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        State.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return State;
+    })();
+
+    return block;
+})();
+
 $root.convergentimmutable = (function() {
 
     /**

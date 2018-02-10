@@ -14,6 +14,7 @@ import {
     Block,
     SegmentState,
 } from './pb'
+import { GetBlock } from './block'
 import { peerIDFromPubKey } from './peer-id'
 import { timestamp } from '@aperturerobotics/timestamp'
 import { IDb } from '@aperturerobotics/objstore/db/interfaces'
@@ -25,9 +26,11 @@ import * as peerid from 'peer-id'
 import toBuffer from 'typedarray-to-buffer'
 import uuidv4 from 'uuid/v4'
 
+// Chain is a block-chain.
 export class Chain {
     // blockDbm is the db prefixed for blocks.
     private blockDbm: IDb;
+    // segmentStore contains known segments.
 
     constructor(
         // db is the key-value database.
@@ -75,7 +78,7 @@ export async function BuildChain(
         }],
     })
 
-    let validatorSetStorageRef = await objStore.storeObject(validatorSet, {})
+    let validatorSetStorageRef = (await objStore.storeObject(validatorSet, {})).storageRef
 
     let chainConf = new ChainConfig({
         timingConfig: {
@@ -86,10 +89,10 @@ export async function BuildChain(
         validatorSetRef: validatorSetStorageRef,
     })
 
-    let chainConfStorageRef = await objStore.storeObject(
+    let chainConfStorageRef = (await objStore.storeObject(
         chainConf,
         encStrat.getBlockEncryptionConfig(),
-    )
+    )).storageRef
 
     let ts = new Date()
     let nowTS: timestamp.ITimestamp = { timeUnixMs: Math.floor(ts.valueOf()) }
@@ -100,10 +103,10 @@ export async function BuildChain(
         initChainConfigRef: chainConfStorageRef,
     })
 
-    let genesisStorageRef = await objStore.storeObject(
+    let genesisStorageRef = (await objStore.storeObject(
         genesis,
         encStrat.getGenesisEncryptionConfig(),
-    )
+    )).storageRef
 
     let cconf = new ChainConfig({
         genesisRef: genesisStorageRef,
@@ -116,33 +119,33 @@ export async function BuildChain(
         genesisRef: genesisStorageRef,
         chainConfigRef: chainConfStorageRef,
         nextChainConfigRef: chainConfStorageRef,
-        roundInfo: {height: 0, round: 0},
+        roundInfo: { height: 0, round: 0 },
         blockTs: nowTS,
         proposerId: validatorID.toB58String(),
     })
-    let firstBlockHeaderStorageRef = objStore.storeObject(
+    let firstBlockHeaderStorageRef = (await objStore.storeObject(
         firstBlockHeader,
         firstBlockHeaderEncConf,
-    )
+    )).storageRef
 
     let firstBlockVoteEncConf = encStrat.getNodeMessageEncryptionConfig(validatorPriv)
     let firstBlockVote = new Vote({
         blockHeaderRef: firstBlockHeaderStorageRef,
     })
-    let firstBlockVoteStorageRef = objStore.storeObject(
+    let firstBlockVoteStorageRef = (await objStore.storeObject(
         firstBlockVote,
         firstBlockVoteEncConf,
-    )
+    )).storageRef
 
     let firstBlockEncConf = firstBlockHeaderEncConf
     let firstBlock = new Block({
         blockHeaderRef: firstBlockHeaderStorageRef,
         voteRefs: [firstBlockVoteStorageRef],
     })
-    let firstBlockStorageRef = objStore.storeObject(
+    let firstBlockStorageRef = (await objStore.storeObject(
         firstBlock,
         firstBlockEncConf,
-    )
+    )).storageRef
 
     let firstSegUid = uuidv4()
     let firstSegDigest: IArrayPtr = {}
@@ -154,11 +157,11 @@ export async function BuildChain(
     })
     await objStore.storeLocal(firstSeg, firstSegDigest)
 
-    // chain is the chain instance.
-    let chain = new Chain(db, objStore, cconf)
+    // ch is the chain instance.
+    let ch = new Chain(db, objStore, cconf)
 
     // blockDbm is the dbm used for blocks.
-    let blockDbm: IDb = chain.getBlockDbm()
+    let blockDbm: IDb = ch.getBlockDbm()
 
     let firstBlk = await GetBlock(encStrat, blockDbm, firstBlockStorageRef)
 }
