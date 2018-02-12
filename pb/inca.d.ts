@@ -2181,6 +2181,9 @@ export namespace chain {
 
         /** SegmentState tailBlockRound */
         tailBlockRound?: (inca.IBlockRoundInfo|null);
+
+        /** SegmentState invalidError */
+        invalidError?: (string|null);
     }
 
     /** Represents a SegmentState. */
@@ -2212,6 +2215,9 @@ export namespace chain {
 
         /** SegmentState tailBlockRound. */
         public tailBlockRound?: (inca.IBlockRoundInfo|null);
+
+        /** SegmentState invalidError. */
+        public invalidError: string;
 
         /**
          * Creates a new SegmentState instance using the specified properties.

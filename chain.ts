@@ -8,6 +8,7 @@ import {
     chain,
     ValidatorSet,
     ChainConfig,
+    ChainState,
     Genesis,
     BlockHeader,
     Vote,
@@ -20,6 +21,7 @@ import { timestamp } from '@aperturerobotics/timestamp'
 import { IDb } from '@aperturerobotics/objstore/db/interfaces'
 import { EncryptionStrategyCtor, BuildEncryptionStrategy } from './encryption/impl'
 import { newConvergentImmutable } from './encryption/convergentimmutable'
+import { SegmentStore } from './segment-store'
 
 import * as lcrypto from 'libp2p-crypto'
 import * as peerid from 'peer-id'
@@ -31,6 +33,9 @@ export class Chain {
     // blockDbm is the db prefixed for blocks.
     private blockDbm: IDb;
     // segmentStore contains known segments.
+    private segmentStore: SegmentStore
+    // state is the chain state.
+    private state: ChainState
 
     constructor(
         // db is the key-value database.
@@ -39,13 +44,44 @@ export class Chain {
         private objStore: ObjectStore,
         // conf is the chain configuration.
         private conf: chain.IConfig,
+        // genesis is the genesis object.
+        private genesis: Genesis
     ) {
         this.blockDbm = new Prefixer(db, "/blocks")
+        this.segmentStore = new SegmentStore(db, objStore)
+        this.state = new ChainState()
     }
 
     // getBlockDbm returns the block dbm.
     public getBlockDbm(): IDb {
         return this.blockDbm
+    }
+
+    // getSegmentStore returns the segment store.
+    public getSegmentStore(): SegmentStore {
+        return this.segmentStore
+    }
+
+    // dbKey is the state key.
+    public get dbKey(): string {
+        return "/chain/" + this.genesis.chainId
+    }
+
+    // writeState writes the state.
+    public async writeState(): Promise<void> {
+        let dat = this.state.encode(this.state).finish()
+        return this.blockDbm.setKey(this.dbKey, dat)
+    }
+
+    // readState reads the state.
+    public async readState(): Promise<void> {
+        let dat = await this.db.getKey(this.dbKey)
+        if (!dat) {
+            return
+        }
+
+        let chainState = this.state.decode(dat) as ChainState
+        this.state = chainState
     }
 }
 
@@ -57,7 +93,7 @@ export async function BuildChain(
     validatorPriv: any,
 ): Promise<Chain> {
     if (!chainID || !chainID.length) {
-        throw new Error("chain id must be set")
+        throw new Error('chain id must be set')
     }
 
     let encStrat = await newConvergentImmutable()
@@ -158,10 +194,20 @@ export async function BuildChain(
     await objStore.storeLocal(firstSeg, firstSegDigest)
 
     // ch is the chain instance.
-    let ch = new Chain(db, objStore, cconf)
+    let ch = new Chain(db, objStore, cconf, genesis)
+    let segmentStore = ch.getSegmentStore()
 
     // blockDbm is the dbm used for blocks.
     let blockDbm: IDb = ch.getBlockDbm()
 
-    let firstBlk = await GetBlock(encStrat, blockDbm, firstBlockStorageRef)
+    let firstBlk = await GetBlock(encStrat, blockDbm, objStore, firstBlockStorageRef)
+    let seg = await segmentStore.newSegment(firstBlk, firstBlockStorageRef)
+    firstBlk.segmentId = seg.id
+
+    ch.stateSegment = seg.id
+
+    await firstBlk.writeState()
+    await ch.writeState()
+
+    return ch
 }

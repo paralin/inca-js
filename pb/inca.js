@@ -5238,6 +5238,7 @@ $root.chain = (function() {
          * @property {string|null} [segmentPrev] SegmentState segmentPrev
          * @property {string|null} [segmentNext] SegmentState segmentNext
          * @property {inca.IBlockRoundInfo|null} [tailBlockRound] SegmentState tailBlockRound
+         * @property {string|null} [invalidError] SegmentState invalidError
          */
 
         /**
@@ -5312,6 +5313,14 @@ $root.chain = (function() {
         SegmentState.prototype.tailBlockRound = null;
 
         /**
+         * SegmentState invalidError.
+         * @member {string} invalidError
+         * @memberof chain.SegmentState
+         * @instance
+         */
+        SegmentState.prototype.invalidError = "";
+
+        /**
          * Creates a new SegmentState instance using the specified properties.
          * @function create
          * @memberof chain.SegmentState
@@ -5349,6 +5358,8 @@ $root.chain = (function() {
                 writer.uint32(/* id 6, wireType 2 =*/50).string(message.segmentNext);
             if (message.tailBlockRound != null && message.hasOwnProperty("tailBlockRound"))
                 $root.inca.BlockRoundInfo.encode(message.tailBlockRound, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
+            if (message.invalidError != null && message.hasOwnProperty("invalidError"))
+                writer.uint32(/* id 8, wireType 2 =*/66).string(message.invalidError);
             return writer;
         };
 
@@ -5403,6 +5414,9 @@ $root.chain = (function() {
                     break;
                 case 7:
                     message.tailBlockRound = $root.inca.BlockRoundInfo.decode(reader, reader.uint32());
+                    break;
+                case 8:
+                    message.invalidError = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -5472,6 +5486,9 @@ $root.chain = (function() {
                 if (error)
                     return "tailBlockRound." + error;
             }
+            if (message.invalidError != null && message.hasOwnProperty("invalidError"))
+                if (!$util.isString(message.invalidError))
+                    return "invalidError: string expected";
             return null;
         };
 
@@ -5522,6 +5539,8 @@ $root.chain = (function() {
                     throw TypeError(".chain.SegmentState.tailBlockRound: object expected");
                 message.tailBlockRound = $root.inca.BlockRoundInfo.fromObject(object.tailBlockRound);
             }
+            if (object.invalidError != null)
+                message.invalidError = String(object.invalidError);
             return message;
         };
 
@@ -5546,6 +5565,7 @@ $root.chain = (function() {
                 object.segmentPrev = "";
                 object.segmentNext = "";
                 object.tailBlockRound = null;
+                object.invalidError = "";
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
@@ -5561,6 +5581,8 @@ $root.chain = (function() {
                 object.segmentNext = message.segmentNext;
             if (message.tailBlockRound != null && message.hasOwnProperty("tailBlockRound"))
                 object.tailBlockRound = $root.inca.BlockRoundInfo.toObject(message.tailBlockRound, options);
+            if (message.invalidError != null && message.hasOwnProperty("invalidError"))
+                object.invalidError = message.invalidError;
             return object;
         };
 

@@ -23,6 +23,7 @@ import {
 
 import isEqual from 'arraybuffer-equal'
 import randombytes from 'randombytes'
+import toBuffer from 'typedarray-to-buffer'
 
 // StrategyType is the strategy type of this implementation.
 export const StrategyType = inca.EncryptionStrategy.EncryptionStrategy_ConvergentImmutable;
@@ -78,11 +79,14 @@ export class ConvergentImmutable implements IStrategy {
             }
 
             let digest = sampleLocalDb.digestData(sb.encryptingData)
+            console.log('encrypting: ' + sb.encryptingData)
             if (digest.length < 24) {
                 throw new Error('digest returned by localdb is less than 24 bytes')
             }
 
+            console.log('digest: ' + toBuffer(digest).toString('hex'))
             let nonce = digest.slice(digest.length - 24)
+            console.log('nonce: ' + toBuffer(nonce).toString('hex'))
             if (nonce.length !== 24) {
                 throw new Error('sliced digest nonce is not 24 bytes: ' + nonce.length)
             }
@@ -96,11 +100,6 @@ export class ConvergentImmutable implements IStrategy {
             compressionType: CmpType,
             resourceLookup: resolver,
         }
-    }
-
-    // GetGenesisEncryptionConfig returns the encryption configuration for encrypting the genesis block.
-    public getGenesisEncryptionConfig(): IEncryptionConfig {
-        return this.getEncryptionConfig()
     }
 
     // getEncryptionConfigWithDigest returns the encryption configuration for decrypting or encrypting an object with a known digest.
@@ -146,6 +145,11 @@ export class ConvergentImmutable implements IStrategy {
         }
     }
 
+    // GetGenesisEncryptionConfig returns the encryption configuration for encrypting the genesis block.
+    public getGenesisEncryptionConfig(): IEncryptionConfig {
+        return this.getEncryptionConfig()
+    }
+
     // GetGenesisEncryptionConfigWithDigest returns the encryption configuration for the genesis block with a digest.
     public getGenesisEncryptionConfigWithDigest(digest: Uint8Array): IEncryptionConfig {
         return this.getEncryptionConfigWithDigest(digest)
@@ -170,7 +174,7 @@ export class ConvergentImmutable implements IStrategy {
         return this.getEncryptionConfig()
     }
 
-    // GetNodeMessageEncryptionConfigWithDigest returns the encryption configuration for the node message with a digest.
+    // getBlockEncryptionConfigWithDigest returns the encryption configuration for the node message with a digest.
     public getBlockEncryptionConfigWithDigest(digest: Uint8Array): IEncryptionConfig {
         return this.getEncryptionConfigWithDigest(digest)
     }

@@ -13,37 +13,55 @@ export class Testbed {
     public objStore: ObjectStore
     // ipfs is the ipfs instance
     public ipfs: IPFS
-
-    constructor(ipfs: IPFS) {
-        this.ipfs = ipfs
-        this.levelBlob = new LevelBlobDb('./test-level-db')
-        this.remoteStore = new RemoteStore(ipfs)
-        this.localStore = new LocalDB(this.levelBlob)
-        this.objStore = new ObjectStore(this.localStore, this.remoteStore)
-    }
+    // refCount is the reference count.
+    public refCount: number
 
     public async teardown() {
-        this.ipfs.stop()
+        this.ipfs.close()
         await this.levelBlob.close()
     }
 }
 
-let ipfsPromise: Promise<IPFS>
-export async function buildIPFS(): Promise<IPFS> {
-    if (ipfsPromise) {
-        return ipfsPromise
+let testbedPromise: Promise<Testbed>
+export async function buildTestbed(): Promise<Testbed> {
+    if (testbedPromise) {
+        return testbedPromise
     }
 
-    ipfsPromise = new Promise<IPFS>((resolve, reject) => {
+    let randTestbedID = Math.random() * 1000000
+    let id = "" + randTestbedID
+    console.log('building testbed')
+    testbedPromise = new Promise<Testbed>((resolve, reject) => {
+        // Problem:
+        // 1. IPFS binds to a port, and to a path (repo + port)
+        // 2. jest (the testing framework) runs multiple threads.
+        // 3. IPFS nodes are conflicting for this reason.
+        // To solve this, for now, we just add an ID to the repo name.
+        // TODO: Properly solve this.
+        let path = './test-repos/' + id
         let ipfs = new IPFS({
-            repo: './test-ipfs-repo',
+            init: true,
+            start: true,
+            EXPERIMENTAL: {
+                pubsub: true,
+            },
+            repo: path,
+            config: {Addresses: {Swarm: []}}
         })
         ipfs.on('ready', () => {
-            resolve(ipfs)
+            console.log('testbed ready')
+            let tb = new Testbed()
+            tb.ipfs = ipfs
+            tb.levelBlob = new LevelBlobDb(path)
+            tb.remoteStore = new RemoteStore(ipfs)
+            tb.localStore = new LocalDB(tb.levelBlob)
+            tb.objStore = new ObjectStore(tb.localStore, tb.remoteStore)
+
+            resolve(tb)
         })
         ipfs.on('error', (e: any) => {
             reject(e)
         })
     })
-    return ipfsPromise
+    return testbedPromise
 }
