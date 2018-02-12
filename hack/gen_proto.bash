@@ -15,8 +15,9 @@ source $GEN_PROTO
 build_proto_tree
 genprotoset \
     inca \
-    prototree/github.com/aperturerobotics/pbobject/pbobject.proto \
     proto/inca.proto \
+    proto/peer/peer.proto \
+    prototree/github.com/aperturerobotics/pbobject/pbobject.proto \
     proto/chain/chain.proto \
     proto/chain/chain_config.proto \
     proto/chain/segment.proto \

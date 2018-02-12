@@ -6,6 +6,7 @@ import {
 import {
     inca,
     chain,
+    peer,
     ValidatorSet,
     ChainConfig,
     ChainState,
@@ -24,7 +25,6 @@ import { newConvergentImmutable } from './encryption/convergentimmutable'
 import { SegmentStore } from './segment-store'
 
 import * as lcrypto from 'libp2p-crypto'
-import * as peerid from 'peer-id'
 import toBuffer from 'typedarray-to-buffer'
 import uuidv4 from 'uuid/v4'
 
@@ -87,6 +87,15 @@ export class Chain {
 
         let chainState = this.state.decode(dat) as ChainState
         this.state = chainState
+    }
+
+    // handleBlockCommit handles an incoming block commit.
+    public async handleBlockCommit(
+        peer: Peer,
+        blkRef: storageref.IStorageRef,
+        blk: BlockImpl,
+    ): Promise<void> {
+        //
     }
 }
 
