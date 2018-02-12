@@ -22,16 +22,11 @@ export class Testbed {
     }
 }
 
-let testbedPromise: Promise<Testbed>
 export async function buildTestbed(): Promise<Testbed> {
-    if (testbedPromise) {
-        return testbedPromise
-    }
-
-    let randTestbedID = Math.random() * 1000000
+    let randTestbedID = Math.floor(Math.random() * 1000000)
     let id = "" + randTestbedID
-    console.log('building testbed')
-    testbedPromise = new Promise<Testbed>((resolve, reject) => {
+    console.log('building testbed ' + id)
+    return new Promise<Testbed>((resolve, reject) => {
         // Problem:
         // 1. IPFS binds to a port, and to a path (repo + port)
         // 2. jest (the testing framework) runs multiple threads.
@@ -63,5 +58,4 @@ export async function buildTestbed(): Promise<Testbed> {
             reject(e)
         })
     })
-    return testbedPromise
 }

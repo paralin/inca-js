@@ -14,6 +14,7 @@ import {
     IEncryptionConfig,
     ObjectWrapper,
     newObjectWrapper,
+    pbobject,
 } from '@aperturerobotics/pbobject'
 import {
     inca,
@@ -50,12 +51,12 @@ export class ConvergentImmutable implements IStrategy {
     }
 
     // buildArgs encodes the arguments of the strategy to a ObjectWrapper.
-    public buildArgs(): Promise<ObjectWrapper> {
+    public async buildArgs(): Promise<ObjectWrapper> {
         let args = new ConvergentImmutableConfig({
             preSharedKey: this.key,
         })
 
-        return newObjectWrapper(args, {})
+        return (await newObjectWrapper(args, {})).wrapper
     }
 
     // GetEncryptionStrategyType returns the encryption strategy type.
@@ -79,14 +80,11 @@ export class ConvergentImmutable implements IStrategy {
             }
 
             let digest = sampleLocalDb.digestData(sb.encryptingData)
-            console.log('encrypting: ' + sb.encryptingData)
             if (digest.length < 24) {
                 throw new Error('digest returned by localdb is less than 24 bytes')
             }
 
-            console.log('digest: ' + toBuffer(digest).toString('hex'))
             let nonce = digest.slice(digest.length - 24)
-            console.log('nonce: ' + toBuffer(nonce).toString('hex'))
             if (nonce.length !== 24) {
                 throw new Error('sliced digest nonce is not 24 bytes: ' + nonce.length)
             }
@@ -181,13 +179,14 @@ export class ConvergentImmutable implements IStrategy {
 }
 
 // newConvergentImmutableWithConfig builds a new convergent immutable instance from a configuration.
-export async function newConvergentImmutableWithConfig(conf: ObjectWrapper | null): Promise<IStrategy> {
-    let confObjTmpl = new Config()
+export async function newConvergentImmutableWithConfig(confWrapper: pbobject.IObjectWrapper | null): Promise<IStrategy> {
+    let conf = new ObjectWrapper(confWrapper)
+    let confObjTmpl = new ConvergentImmutableConfig()
     if (!conf) {
         throw new Error('convergent immutable requires configuration with pre-shared key')
     }
 
-    let confObj = await conf.decodeToObject(confObjTmpl, {}) as Config
+    let confObj = await conf.decodeToObject(confObjTmpl, {}) as ConvergentImmutableConfig
     if (!confObj.preSharedKey || !confObj.preSharedKey.length) {
         throw new Error('convergent immutable requires configuration with pre-shared key')
     }

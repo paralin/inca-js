@@ -7,6 +7,7 @@ import { Block, BlockHeader } from '../pb'
 describe('Segment', () => {
     it('should generate a uuid when making a new segment', async () => {
         let testbed = await buildTestbed()
+
         let segmentStore = new SegmentStore(testbed.levelBlob, testbed.objStore)
         let blkHeader = new BlockHeader()
         let blk = new Block(undefined, blkHeader)

@@ -7,6 +7,7 @@ import toBuffer from 'typedarray-to-buffer'
 describe('ConvergentImmutable', () => {
     it('should encrypt and decrypt correctly', async () => {
         let testbed = await buildTestbed()
+
         let strat = await newConvergentImmutable()
         let encConf = strat.getEncryptionConfig()
         let objStore = testbed.objStore
@@ -18,7 +19,6 @@ describe('ConvergentImmutable', () => {
         )
 
         let encConfDec = strat.getEncryptionConfigWithDigest(res.storageRef.objectDigest)
-        console.log('reported digest: '+ toBuffer(res.storageRef.objectDigest).toString('base64'))
         let objAfter = new MockObject()
         objAfter = await objStore.getOrFetch(
             res.storageRef.objectDigest,

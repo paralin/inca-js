@@ -62,6 +62,11 @@ export class Chain {
         return this.segmentStore
     }
 
+    // getChainConfig returns the chain config.
+    public getChainConfig(): chain.IConfig {
+        return this.conf
+    }
+
     // dbKey is the state key.
     public get dbKey(): string {
         return "/chain/" + this.genesis.chainId
@@ -144,10 +149,11 @@ export async function BuildChain(
         encStrat.getGenesisEncryptionConfig(),
     )).storageRef
 
-    let cconf = new ChainConfig({
+    let cconf: chain.IConfig = {
         genesisRef: genesisStorageRef,
         encryptionStrategy: encStrat.getEncryptionStrategyType(),
-    })
+        encryptionArgs: encStratConf,
+    }
 
     let firstBlockHeaderEncConf = encStrat.getBlockEncryptionConfig()
     firstBlockHeaderEncConf.signerKeys = [validatorPriv]
@@ -210,4 +216,19 @@ export async function BuildChain(
     await ch.writeState()
 
     return ch
+}
+
+// FromConfig loads a blockchain from a config.
+export async function FromConfig(
+    db: IDb,
+    objStore: ObjectStore,
+    conf: chain.IConfig,
+): Promise<Chain> {
+    let encStrat = await BuildEncryptionStrategy(conf.encryptionStrategy, conf.encryptionArgs)
+    let encConf = encStrat.getGenesisEncryptionConfigWithDigest(conf.genesisRef.objectDigest)
+    let genesisRef = conf.genesisRef
+    let genesis = await objStore.getOrFetchReference(genesisRef, new Genesis(), encConf)
+    let chain = new Chain(db, objStore, conf, genesis)
+    await chain.readState()
+    return chain
 }

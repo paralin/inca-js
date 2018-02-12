@@ -1,4 +1,5 @@
-import { Chain, BuildChain } from '../chain'
+import { Chain, BuildChain, FromConfig } from '../chain'
+import { Genesis } from '../pb'
 import { ObjectStore, LevelBlobDb, RemoteStore, LocalDB } from '@aperturerobotics/objstore'
 import { generateKeyPair } from '../key'
 import { buildTestbed, Testbed } from './common'
@@ -18,6 +19,7 @@ describe('Chain', () => {
             testbed.objStore,
             'test-chain',
             await generateKeyPair('ed25519', 256),
+            new Genesis(),
         )
     })
 
@@ -28,6 +30,12 @@ describe('Chain', () => {
             testbed.objStore,
             'test-chain',
             await generateKeyPair('ed25519', 256),
+        )
+
+        let fromConfig = await FromConfig(
+            testbed.levelBlob,
+            testbed.objStore,
+            chain.getChainConfig(),
         )
     })
 })
