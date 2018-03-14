@@ -22,9 +22,8 @@ import {
     ConvergentImmutableConfig,
 } from '../../pb'
 
-import isEqual from 'arraybuffer-equal'
-import randombytes from 'randombytes'
-import toBuffer from 'typedarray-to-buffer'
+import arraybufferEqual from 'arraybuffer-equal'
+import * as randombytes from 'randombytes'
 
 // StrategyType is the strategy type of this implementation.
 export const StrategyType = inca.EncryptionStrategy.EncryptionStrategy_ConvergentImmutable;
@@ -127,7 +126,7 @@ export class ConvergentImmutable implements IStrategy {
 
             if (sb.encrypting && sb.encryptingData) {
                 let encDigest = sampleLocalDb.digestData(sb.encryptingData)
-                if (!isEqual(encDigest, digest)) {
+                if (!arraybufferEqual(encDigest, digest)) {
                     throw new Error('encrypting object digest does not match pre-configured encryption config digest')
                 }
             }
@@ -180,7 +179,7 @@ export class ConvergentImmutable implements IStrategy {
 
 // newConvergentImmutableWithConfig builds a new convergent immutable instance from a configuration.
 export async function newConvergentImmutableWithConfig(confWrapper: pbobject.IObjectWrapper | null): Promise<IStrategy> {
-    let conf = new ObjectWrapper(confWrapper)
+    let conf = new ObjectWrapper(confWrapper || undefined)
     let confObjTmpl = new ConvergentImmutableConfig()
     if (!conf) {
         throw new Error('convergent immutable requires configuration with pre-shared key')

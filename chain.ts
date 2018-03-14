@@ -16,26 +16,28 @@ import {
     Block,
     SegmentState,
 } from './pb'
-import { GetBlock } from './block'
+import { GetBlock, BlockImpl } from './block'
+import { Peer } from './peer'
 import { peerIDFromPubKey } from './peer-id'
 import { timestamp } from '@aperturerobotics/timestamp'
-import { IDb } from '@aperturerobotics/objstore/db/interfaces'
+import { IDb } from '@aperturerobotics/objstore'
+import { storageref } from '@aperturerobotics/storageref'
 import { EncryptionStrategyCtor, BuildEncryptionStrategy } from './encryption/impl'
 import { newConvergentImmutable } from './encryption/convergentimmutable'
 import { SegmentStore } from './segment-store'
+import { pbobject } from '@aperturerobotics/pbobject'
 
 import * as lcrypto from 'libp2p-crypto'
-import toBuffer from 'typedarray-to-buffer'
-import uuidv4 from 'uuid/v4'
+import * as uuidv4 from 'uuid/v4'
 
 // Chain is a block-chain.
 export class Chain {
+    // state is the chain state.
+    public state: ChainState
     // blockDbm is the db prefixed for blocks.
     private blockDbm: IDb;
     // segmentStore contains known segments.
     private segmentStore: SegmentStore
-    // state is the chain state.
-    private state: ChainState
 
     constructor(
         // db is the key-value database.
@@ -189,10 +191,10 @@ export async function BuildChain(
     )).storageRef
 
     let firstBlockEncConf = firstBlockHeaderEncConf
-    let firstBlock = new Block({
+    let firstBlock = new Block(new inca.Block({
         blockHeaderRef: firstBlockHeaderStorageRef,
         voteRefs: [firstBlockVoteStorageRef],
-    })
+    }))
     let firstBlockStorageRef = (await objStore.storeObject(
         firstBlock,
         firstBlockEncConf,
@@ -217,9 +219,9 @@ export async function BuildChain(
 
     let firstBlk = await GetBlock(encStrat, blockDbm, objStore, firstBlockStorageRef)
     let seg = await segmentStore.newSegment(firstBlk, firstBlockStorageRef)
-    firstBlk.segmentId = seg.id
+    firstBlk.state.segmentId = seg.id
 
-    ch.stateSegment = seg.id
+    ch.state.stateSegment = seg.id
 
     await firstBlk.writeState()
     await ch.writeState()
@@ -233,10 +235,20 @@ export async function FromConfig(
     objStore: ObjectStore,
     conf: chain.IConfig,
 ): Promise<Chain> {
-    let encStrat = await BuildEncryptionStrategy(conf.encryptionStrategy, conf.encryptionArgs)
+    let encStratConf = conf.encryptionStrategy
+    if (!encStratConf) {
+        encStratConf = inca.EncryptionStrategy.EncryptionStrategy_ConvergentImmutable
+        conf.encryptionStrategy = encStratConf
+    }
+
+    let encStrat = await BuildEncryptionStrategy(encStratConf, conf.encryptionArgs || null)
+    if (!conf.genesisRef || !conf.genesisRef.objectDigest) {
+        throw new Error('config genesis reference cannot be null')
+    }
+
     let encConf = encStrat.getGenesisEncryptionConfigWithDigest(conf.genesisRef.objectDigest)
     let genesisRef = conf.genesisRef
-    let genesis = await objStore.getOrFetchReference(genesisRef, new Genesis(), encConf)
+    let genesis = await objStore.getOrFetchReference(genesisRef || null, new Genesis(), encConf) as Genesis
     let chain = new Chain(db, objStore, conf, genesis)
     await chain.readState()
     return chain

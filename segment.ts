@@ -3,7 +3,7 @@ import {
     SegmentState,
 } from './pb'
 import { IStrategy } from './encryption'
-import { IDb } from '@aperturerobotics/objstore/db/interfaces'
+import { IDb } from '@aperturerobotics/objstore'
 import { ObjectStore } from '@aperturerobotics/objstore'
 import { GetBlock } from './block';
 

@@ -1,12 +1,12 @@
 import { Chain, BuildChain, FromConfig } from '../chain'
 import { Genesis } from '../pb'
-import { ObjectStore, LevelBlobDb, RemoteStore, LocalDB } from '@aperturerobotics/objstore'
+import { ObjectStore, RemoteStore, LocalDB } from '@aperturerobotics/objstore'
 import { generateKeyPair } from '../key'
 import { buildTestbed, Testbed } from './common'
 
 import * as lcrypto from 'libp2p-crypto'
 import IPFS from 'ipfs'
-import randombytes from 'randombytes'
+import * as randombytes from 'randombytes'
 
 describe('Chain', () => {
     let key = randombytes(32)

@@ -1,2 +1,7 @@
 export * from './pb'
 export * from './peer-id'
+export * from './peer'
+export * from './block'
+export * from './segment'
+export * from './segment-store'
+export * from './chain'

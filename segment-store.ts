@@ -3,8 +3,8 @@ import {
     chain,
     Block,
 } from './pb'
-import { IDb } from '@aperturerobotics/objstore/db/interfaces'
-import { Prefixer } from '@aperturerobotics/objstore/prefixer'
+import { IDb } from '@aperturerobotics/objstore'
+import { Prefixer } from '@aperturerobotics/objstore'
 import { storageref, storageRefEquals } from '@aperturerobotics/storageref'
 import { IStrategy } from './encryption/encryption'
 import { ObjectStore } from '@aperturerobotics/objstore'
@@ -16,8 +16,8 @@ import {
 } from './block'
 
 import * as Collections from 'typescript-collections'
-import uuidv4 from 'uuid/v4'
-import toBuffer from 'typedarray-to-buffer'
+import * as uuidv4 from 'uuid/v4'
+import * as toBuffer from 'typedarray-to-buffer'
 
 // SegmentQueue is a priority queue for rewinding segments.
 export class SegmentQueue extends Collections.PriorityQueue<Segment> {
@@ -38,7 +38,8 @@ export class SegmentQueue extends Collections.PriorityQueue<Segment> {
             return 0
         }
 
-        return a.tailBlockRound.height - b.tailBlockRound.height
+        return ((a.tailBlockRound.height as number) || 0) -
+            ((b.tailBlockRound.height as number) || 0)
     }
 }
 
@@ -131,10 +132,10 @@ export class SegmentStore {
     // rewindSegment rewinds a particular segment once.
     private async rewindSegment(seg: Segment, encStrat: IStrategy): Promise<void> {
         let tailRef: storageref.IStorageRef | null = seg.tailBlock || null
-        let tailBlk = await FollowBlockRef(tailRef, encStrat)
+        let tailBlk = await FollowBlockRef(tailRef, encStrat, this.objStore)
         let tailBlkObj = await GetBlock(encStrat, this.blockDb, this.objStore, tailRef)
         let tailBlkHeaderRef: storageref.IStorageRef | null = tailBlk.blockHeaderRef || null
-        let tailBlkHeader = await FollowBlockHeaderRef(tailBlkHeaderRef, encStrat)
+        let tailBlkHeader = await FollowBlockHeaderRef(tailBlkHeaderRef, encStrat, this.objStore)
         let prevBlockRef: storageref.IStorageRef | null = tailBlkHeader.lastBlockRef || null
         let prevBlk = await GetBlock(encStrat, this.blockDb, this.objStore, prevBlockRef)
 
@@ -153,7 +154,13 @@ export class SegmentStore {
         await prevBlk.writeState()
 
         seg.tailBlock = prevBlockRef
-        seg.tailBlockRound = prevBlk.getHeader().roundInfo
+
+        let prevBlkHeader = prevBlk.getHeader()
+        if (!prevBlkHeader) {
+            throw new Error('previous block header not known')
+        }
+
+        seg.tailBlockRound = prevBlkHeader.roundInfo
         try {
             await prevBlk.validateChild(tailBlkObj)
         } catch (e) {
@@ -161,11 +168,6 @@ export class SegmentStore {
         }
 
         if (seg.status === chain.SegmentStatus.SegmentStatus_DISJOINTED) {
-            let prevBlkHeader = prevBlk.getHeader()
-            if (!prevBlkHeader) {
-                throw new Error('previous block header not known')
-            }
-
             let prevBlkRound = prevBlkHeader.roundInfo
             if (!prevBlkRound) {
                 throw new Error('previous block round is empty')
@@ -174,15 +176,15 @@ export class SegmentStore {
             // height = 0 -> we have traversed to genesis.
             if (prevBlkRound.height === 0) {
                 // TODO: more checking.
-                    /*
-                if prevBlk.GetHeader().GetChainConfigRef().Equals(chain.GetGenesis().GetInitChainConfigRef()) {
-                    s.le.Info("traversed to the genesis block, marking segment as valid")
-                    s.state.Status = ichain.SegmentStatus_SegmentStatus_VALID
-                } else {
-                    s.le.Warn("segment terminates at invalid genesis")
-                    s.state.Status = ichain.SegmentStatus_SegmentStatus_INVALID
-                }
-                */
+                /*
+            if prevBlk.GetHeader().GetChainConfigRef().Equals(chain.GetGenesis().GetInitChainConfigRef()) {
+                s.le.Info("traversed to the genesis block, marking segment as valid")
+                s.state.Status = ichain.SegmentStatus_SegmentStatus_VALID
+            } else {
+                s.le.Warn("segment terminates at invalid genesis")
+                s.state.Status = ichain.SegmentStatus_SegmentStatus_INVALID
+            }
+            */
                 seg.status = chain.SegmentStatus.SegmentStatus_VALID
             }
         }

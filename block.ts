@@ -1,5 +1,5 @@
 import { IStrategy } from './encryption/encryption'
-import { IDb } from '@aperturerobotics/objstore/db/interfaces'
+import { IDb } from '@aperturerobotics/objstore'
 import { timestampToTime } from '@aperturerobotics/timestamp';
 import { storageref } from '@aperturerobotics/storageref'
 import { ObjectStore } from '@aperturerobotics/objstore';
@@ -10,20 +10,16 @@ import {
     block,
 } from './pb'
 
-import toBuffer from 'typedarray-to-buffer'
+import * as toBuffer from 'typedarray-to-buffer'
 
 // BlockImpl contains the implementation of the block logic loaded into memory.
-export class BlockImpl {
+export class BlockImpl extends Block {
     // state is the block state.
-    private state: block.State
+    public state: block.State
     // db is a reference to the db.
     private db: IDb
     // objStore is the object store.
     private objStore: ObjectStore;
-    // blk is the block object
-    private blk: Block
-    // header is the block header object
-    private header: BlockHeader
     // encStrat is the encryption strategy
     private encStrat: IStrategy
     // blkRef is the block storage reference
@@ -41,6 +37,7 @@ export class BlockImpl {
         header: BlockHeader,
         encStrat: IStrategy,
     ) {
+        super(blk)
         let digestBuf = toBuffer(blockRef.objectDigest)
         let id = digestBuf.toString('base64')
 
@@ -49,8 +46,7 @@ export class BlockImpl {
         this.id = id
         this.db = db
         this.blkRef = blockRef
-        this.blk = blk
-        this.header = header
+        this.setHeader(header)
         this.encStrat = encStrat
         this.dbKey = "/" + id
     }
@@ -93,19 +89,14 @@ export class BlockImpl {
         return this.blkRef
     }
 
-    // getHeader returns the block header.
-    public getHeader(): BlockHeader {
-        return this.header
-    }
-
     // validateChild throws if the child is not valid.
     public async validateChild(child: BlockImpl): Promise<void> {
-        let childHeader = child.header
+        let childHeader = child.getHeader()
         if (!childHeader) {
             throw new Error('child block header unset, cannot validate')
         }
 
-        let bHeader = this.header
+        let bHeader = this.getHeader()
         if (!bHeader) {
             throw new Error('parent block header unset, cannot validate child')
         }
@@ -123,7 +114,7 @@ export class BlockImpl {
             throw new Error('child block header did not contain round info, cannot validate')
         }
 
-        let childExpectedHeight = bRoundInfo.height + 1
+        let childExpectedHeight = ((bRoundInfo.height as number) || 0) + 1
         if (childRoundInfo.height !== childExpectedHeight) {
             throw new Error(`child height ${childRoundInfo.height} != expected ${childExpectedHeight}`)
         }
@@ -137,11 +128,12 @@ export class BlockImpl {
 
     // fetchChainConfig fetches the chain config.
     private async fetchChainConfig(): Promise<ChainConfig> {
-        if (!this.header || !this.header.chainConfigRef || !this.header.chainConfigRef.objectDigest) {
+        let header = this.getHeader()
+        if (!header || !header.chainConfigRef || !header.chainConfigRef.objectDigest) {
             throw new Error('header reference required')
         }
 
-        let chainConfRef = this.header.chainConfigRef
+        let chainConfRef = header.chainConfigRef
         if (!chainConfRef || !chainConfRef.objectDigest) {
             throw new Error('chain config reference and object digest required')
         }
@@ -192,7 +184,6 @@ export async function FollowBlockHeaderRef(
     }
 
     return blockHeader
-}
 }
 
 // GetBlock gets the Block object associated with the given Block storage ref.

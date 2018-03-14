@@ -1,7 +1,10 @@
-import { ObjectStore, Prefixer } from '@aperturerobotics/objstore'
-import { IDb } from '@aperturerobotics/objstore/db/interfaces'
+import {
+    ObjectStore,
+    Prefixer,
+    IDb,
+} from '@aperturerobotics/objstore'
 import { IStrategy } from './encryption'
-import { peer } from './pb'
+import { peer, PeerState } from './pb'
 import { storageref } from '@aperturerobotics/storageref'
 import { BlockImpl } from './block'
 import { peerIDFromPubKey } from './peer-id'
@@ -15,7 +18,7 @@ export interface IPeerHandler {
 // Peer is an observed participant in the network.
 export class Peer {
     // state is the peer state.
-    private state: peer.PeerState
+    private state: PeerState
 
     constructor(
         // db is the peer database.
@@ -33,7 +36,7 @@ export class Peer {
         // handler is the peer event handler.
         private handler: IPeerHandler,
     ) {
-        this.state = new peer.PeerState()
+        this.state = new PeerState()
     }
 
     // readState reads the state.
@@ -43,7 +46,7 @@ export class Peer {
             return
         }
 
-        let state = this.state.decode(dat) as peer.PeerState
+        let state = this.state.decode(dat) as PeerState
         this.state = state
     }
 }
@@ -53,15 +56,15 @@ export async function newPeer(
     // dbm is the parent database.
     dbm: IDb,
     // objStore is the object store.
-    private objStore: ObjectStore,
+    objStore: ObjectStore,
     // pubKey is the public key of the node.
-    private pubKey: any,
+    pubKey: any,
     // genesisDigest is the genesis digest.
-    private genesisDigest: Uint8Array,
+    genesisDigest: Uint8Array,
     // encStrat is the encryption strategy
-    private encStrat: IStrategy,
+    encStrat: IStrategy,
     // handler is the peer event handler.
-    private handler: IPeerHandler,
+    handler: IPeerHandler,
 ): Promise<Peer> {
     let peerID = await peerIDFromPubKey(pubKey)
     let db = new Prefixer(dbm, "/" + peerID.toB58String())

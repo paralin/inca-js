@@ -23,7 +23,7 @@ export function GetEncryptionStrategyCtor(kind: inca.EncryptionStrategy): Encryp
 }
 
 // BuildEncryptionStrategy tries to build an encryption strategy given type and args.
-export function BuildEncryptionStrategy(kind: inca.EncryptionStrategy, args: pbobject.IObjectWrapper): Promise<IStrategy> {
+export function BuildEncryptionStrategy(kind: inca.EncryptionStrategy, args: pbobject.IObjectWrapper | null): Promise<IStrategy> {
     let stratCtor = GetEncryptionStrategyCtor(kind)
     return stratCtor(args)
 }

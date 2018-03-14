@@ -1,8 +1,6 @@
 import { ConvergentImmutable, newConvergentImmutable } from '../encryption/convergentimmutable/convergent_immutable'
 import { buildTestbed, Testbed } from './common'
-import { MockObject } from '@aperturerobotics/pbobject/mock/object'
-
-import toBuffer from 'typedarray-to-buffer'
+import { MockObject } from '@aperturerobotics/pbobject'
 
 describe('ConvergentImmutable', () => {
     it('should encrypt and decrypt correctly', async () => {

@@ -1,10 +1,17 @@
-import { ObjectStore, LevelBlobDb, RemoteStore, LocalDB } from '@aperturerobotics/objstore'
+import {
+    ObjectStore,
+    RemoteStore,
+    LocalDB,
+    InmemDB,
+} from '@aperturerobotics/objstore'
 import IPFS from 'ipfs'
 
 // Testbed is an initialized testbed.
 export class Testbed {
     // levelBlob is the level blob database.
-    public levelBlob: LevelBlobDb
+    // public levelBlob: LevelBlobDb
+    // levelBlob is the key/value database.
+    public levelBlob: LocalDB
     // remoteStore is the remote store
     public remoteStore: RemoteStore
     // localStore is the local database
@@ -47,7 +54,8 @@ export async function buildTestbed(): Promise<Testbed> {
             console.log('testbed ready')
             let tb = new Testbed()
             tb.ipfs = ipfs
-            tb.levelBlob = new LevelBlobDb(path)
+            // tb.levelBlob = new LevelBlobDb(path)
+            tb.levelBlob = new InmemDB()
             tb.remoteStore = new RemoteStore(ipfs)
             tb.localStore = new LocalDB(tb.levelBlob)
             tb.objStore = new ObjectStore(tb.localStore, tb.remoteStore)
